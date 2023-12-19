@@ -1,0 +1,46 @@
+h1 {
+    margin-top: 100px;
+    color: rgb(131, 36, 115);
+    font-family: Consolas;
+    font-size: 30px;
+}
+
+p, li {
+    font-family: Consolas;
+    color: rgb(0, 0, 0);
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    background-color: rgb(255, 255, 255);
+}
+
+canvas {
+    background-color: black;
+    margin-bottom: 150px;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.game-caption {
+    margin-bottom: 20px;
+    font-size: larger;
+    color: rgb(156, 142, 142);
+}
+
+.paragraph {
+    margin-bottom: 100px;
+}
+
+.code-block {
+    display: inline-block;
+    width: 800px;
+}
+
+hr {
+    margin-top: -25px;
+}
