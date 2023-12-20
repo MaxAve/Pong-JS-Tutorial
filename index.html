@@ -7,91 +7,131 @@
     </head>
     <body>
         <div id="main">
-            <div class="align-center">
-                <h1 class="title"><u>Lass uns ein Spiel programmieren!</u></h2>
-                <p>Dies ist ein Step-by-Step Tutorial, der Ihnen zeigen wird, wie Sie das Spiel "Pong"<br> mit HTML und JavaScript erstellen können. Scrolle weiter und nach eine oder zwei<br>Stunden werden Sie ein komplettes, selbst-gemachtes Pong-Spiel haben! Nachdem Sie<br>fertig sind, können Sie diesen neuen Wissen benutzen, um an diesen Spiel weiterzuarbeiten<br>oder sogar eine neuen selber erstellen.</p>
-                <p class="game-caption"><strong>Das Endergebenis (nutze Pfeiltasten um zu spielen)</strong></p>
-                <canvas id="pong" width="800" height="500"></canvas>
-                <script src="pong.js"></script>
+            <h1 class="title"><u>Lass uns ein Spiel programmieren!</u></h2>
+            <p>Dies ist ein Step-by-Step Tutorial, der Ihnen zeigen wird, wie Sie das Spiel "Pong"   mit HTML und JavaScript erstellen können. Scrolle weiter und nach eine oder zwei Stunden werden Sie ein komplettes, selbst-gemachtes Pong-Spiel haben! Nachdem Sie  fertig sind, können Sie diesen neuen Wissen benutzen, um an diesen Spiel weiterzuarbeiten  oder sogar eine neuen selber erstellen.</p>
+            <p class="game-caption"><strong>Das Endergebenis (nutze Pfeiltasten um zu spielen)</strong></p>
+            <canvas id="pong" width="800" height="500"></canvas>
+            <script src="pong.js"></script>
 
-                <h1 class="title">Vorwissen</h2>
-                <hr>
-                <p>Um diesen Spiel zu programmieren, musst du die <u>Grundlagen</u> von HTML, CSS, und JavaScript kennen.<br>Ich werde es versuchen, diesen Tutorial so Anfängerfreundlich zu machen wie ich das kann, Sie<br>werden aber trotzdem irgendein Grundwissen von HTML/CSS/JavaScript brauchen.</p>
+            <h1 class="title">Vorwissen</h2>
+            <hr>
+            <p>Um diesen Spiel zu programmieren, musst du die <u>Grundlagen</u> von HTML, CSS, und JavaScript kennen. Ich werde es versuchen, diesen Tutorial so Anfängerfreundlich zu machen wie ich das kann, Sie werden aber trotzdem irgendein Grundwissen von HTML/CSS/JavaScript brauchen.</p>
 
-                <h1 class="title">Schritt 1: index.html</h1>
-                <hr>
-                <p>Als erstes brauchen wir die Grund-HTML-Struktur. Damit erstellen wir eine leere Seite<br>namens "Pong". Kopiere diesen Quellcode in eine Datei namens <u>index.html</u>; speichere sie<br>und öffne sie in deinem belibten Browser.</p>
-                <div class="code-block">
-                    <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+            <h1 class="title">Schritt 1: index.html</h1>
+            <hr>
+            <p>Als erstes brauchen wir die Grund-HTML-Struktur. Damit erstellen wir eine leere Seite  namens "Pong". Kopiere diesen Quellcode in eine Datei namens <u>index.html</u>; speichere sie  und öffne sie in deinem belibten Browser.</p>
+            <div class="code-block">
+                <pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
-    &lt;head&gt;
-        &lt;title&gt;Pong&lt;/title&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
+&lt;head&gt;
+    &lt;title&gt;Pong&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
 
-    &lt;/body&gt;
+&lt;/body&gt;
 &lt;/html&gt;</code></pre>
-                </div>
+            </div>
 
-                <h1 class="title">Schritt 2: Der Canvas</h1>
-                <hr>
-                <p>Danach brauchen wir einen <a href="https://www.w3schools.com/html/html5_canvas.asp" target="blank">Canvas</a>. Der Canvas ist ein besonderer Object, der uns<br>erlaubt, Grafiken darauf zu zeichnen. Auf dem Canvas kann man vielfältige Objekte<br>zeichnen, z.B.: Vierecke, was ist genau das, was wir benutzen werden.<br><br>Erstelle einen Canvas im &lt;body&gt; bereich so:</p>
-                <div class="code-block">
-                    <pre><code class="language-html">&lt;canvas id="mein-spiel" width=800 height=500&gt;&lt;/canvas&gt;</code></pre>
-                </div>
-                <p>So erstellen wir einen Canvas mit einer id von "mein-spiel"<br>Die "width" und "height" Parameter (Engl. Breite/Höhe) kontrollieren jeweils die Breite<br>und die Höhe vom Canvas.</p>
+            <h1 class="title">Schritt 2: Der Canvas</h1>
+            <hr>
+            <p>Danach brauchen wir einen <a href="https://www.w3schools.com/html/html5_canvas.asp" target="blank">Canvas</a>. Der Canvas ist ein besonderer Object, der uns  erlaubt, Grafiken darauf zu zeichnen. Auf dem Canvas kann man vielfältige Objekte  zeichnen, z.B.: Vierecke, was ist genau das, was wir benutzen werden.<br><br>Erstelle einen Canvas im &lt;body&gt; bereich so:</p>
+            <div class="code-block">
+                <pre><code class="language-html">&lt;canvas id="mein-spiel" width=800 height=500&gt;&lt;/canvas&gt;</code></pre>
+            </div>
+            <p>So erstellen wir einen Canvas mit einer id von "mein-spiel" Die "width" und "height" Parameter (Engl. Breite/Höhe) kontrollieren jeweils die Breite   und die Höhe vom Canvas.</p>
 
-                <h1 class="title">Schritt 3: style.css</h1>
-                <hr>
-                <p>Wenn Sie nun ihre Seite speichern und öffnen, ist es wahrscheinlich, dass Sie keine<br>Änderungen sehen werden. Das liegt daran, dass der Canvas die selbe Farbe hat wie der<br>Hintergrund. Lass uns dann eine CSS Datei erstellen, damit wir die Farbe ändern können.<br><br>Erstellen Sie eine neue Datei namens <u>style.css</u> und ändern Sie die Farbe des Canvas Elements:</u></p>
+            <h1 class="title">Schritt 3: style.css</h1>
+            <hr>
+            <p>Wenn Sie nun ihre Seite speichern und öffnen, ist es wahrscheinlich, dass Sie keine   Änderungen sehen werden. Das liegt daran, dass der Canvas die selbe Farbe hat wie der   Hintergrund. Lass uns dann eine CSS Datei erstellen, damit wir die Farbe ändern können.<br><br>Erstellen Sie eine neue Datei namens <u>style.css</u> und ändern Sie die Farbe des Canvas Elements:</u></p>
 
-                <div class="code-block">
-                    <pre><code class="language-css">canvas {
-    background-color: black;
+            <div class="code-block">
+                <pre><code class="language-css">canvas {
+background-color: black;
 }</code></pre>
-                </div>
-                <p>Momentan werden Sie wieder nichts neues sehen. Wir mussen die CSS-Datei mit unseren<br>HTML-Seite linken. Im &lt;head&gt; Bereich fügen Sie dies ein:</p>
+            </div>
+            <p>Momentan werden Sie wieder nichts neues sehen. Wir mussen die CSS-Datei mit unseren HTML-Seite linken. Im &lt;head&gt; Bereich fügen Sie dies ein:</p>
 
-                <div class="code-block">
-                    <pre><code class="language-html">&lt;link rel="stylesheet" href="style.css"/&gt;</code></pre>
-                </div>
+            <div class="code-block">
+                <pre><code class="language-html">&lt;link rel="stylesheet" href="style.css"/&gt;</code></pre>
+            </div>
 
-                <p>Ihr HTML Quellcode soll nun so aussehen:</p>
-                <div class="code-block">
-                    <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+            <p>Ihr HTML Quellcode soll nun so aussehen:</p>
+            <div class="code-block">
+                <pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
-    &lt;head&gt;
-        &lt;title&gt;Pong&lt;/title&gt;
-        &lt;link rel="stylesheet" href="style.css"/&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-        &lt;canvas id="mein-spiel" width=800 height=500&gt;&lt;/canvas&gt;
-    &lt;/body&gt;
+&lt;head&gt;
+    &lt;title&gt;Pong&lt;/title&gt;
+    &lt;link rel="stylesheet" href="style.css"/&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;canvas id="mein-spiel" width=800 height=500&gt;&lt;/canvas&gt;
+&lt;/body&gt;
 &lt;/html&gt;</code></pre>
-                </div>
+            </div>
 
-                <h1 class="title">Schritt 4: script.js und die Schläger</h1>
-                <hr>
-                <p>Nun haben wir einen schwarzen, leeren Canvas. Wir brauchen aber erstmal zwei Schläger,<br>womit wir spielen werden.<br><br>Erstmal brauchen wir einen Skript. Dies schreiben wir mit JavaScript.<br>Erstellen Sie als erstes eine weitere Datei namens <u>script.js</u> mit folgendem Quellcode:</p>
-                <div class="code-block">
-                    <pre><code class="language-js">const spiel_canvas = document.getElementById("mein-spiel"); // Referenz zur Canvas
-const kontext = spiel_canvas.getContext("2d"); // 2D Kontext von unserem Canvas</code></pre>
-                </div>
-                <p>Was macht dieses Code denn wohl?<br><br>Die erste Zeile erstellt einen Objekt namens "spiel_canvas", die einen HTML Element mit<br>einer ID "mein-spiel" <a target="_blank", href="https://www.w3schools.com/jsref/met_document_getelementbyid.asp">referenziert</a>. Das ist tatsächlich diesselbe ID, die unserer Canvas hat.<br><strong>Also ist dieser Objekt nun eine Referenz an unser HTML Canvas</strong>. Dies brauchen wir später.<br><br>Die zweite Zeile ist viel interresanter. Wir definieren ein Objekt "kontext".<br>Dies ist der 2D Kontext von unserer Canvas.<br><strong>Die 2D Kontext brauchen wir, um 2D Graphiken auf unser Canvas zeichnen zu können.</strong></p>
-                <br><br>
-                <p><strong>Lass uns einen Rechteck auf unser Canvas zeichnen.</strong><br>Fügen Sie dieses Code unter den ersten zwei Zeilen ein:</p>
-                <div class="code-block">
-                    <pre><code class="language-js">kontext.fillStyle = 'white'; // Weiße Farbe. Unser Rechteck wird mit dieser Farbe gefüllt.
+            <h1 class="title">Schritt 4: script.js</h1>
+            <hr>
+            <p>Nun haben wir einen schwarzen, leeren Canvas. Wir brauchen aber erstmal zwei Schläger, womit wir spielen werden.<br><br>Erstmal brauchen wir einen Skript. Dies schreiben wir mit JavaScript. Erstellen Sie als erstes eine weitere Datei namens <u>script.js</u> mit folgendem Quellcode:</p>
+            <div class="code-block">
+                <pre><code class="language-js">const spiel_canvas = document.getElementById('mein-spiel') // Referenz zur Canvas
+const kontext = spiel_canvas.getContext('2d') // 2D Kontext von unserem Canvas</code></pre>
+            </div>
+            <p>Was macht dieses Code denn wohl?<br><br>Die erste Zeile erstellt einen Objekt namens "spiel_canvas", die einen HTML Element mit einer ID "mein-spiel" <a target="_blank", href="https://www.w3schools.com/jsref/met_document_getelementbyid.asp">referenziert</a>. Das ist tatsächlich diesselbe ID, die unserer Canvas hat. <strong>Also ist dieser Objekt nun eine Referenz an unser HTML Canvas</strong>. Dies brauchen wir später.<br><br>Die zweite Zeile ist viel interresanter. Wir definieren ein Objekt "kontext". Dies ist der 2D Kontext von unserer Canvas.<strong> Die 2D Kontext brauchen wir, um 2D Graphiken auf unser Canvas zeichnen zu können.</strong></p>
+            <br><br>
+            <p><strong>Lass uns einen Rechteck auf unser Canvas zeichnen.</strong> Fügen Sie dieses Code unter den ersten zwei Zeilen ein:</p>
+            <div class="code-block">
+                <pre><code class="language-js">kontext.fillStyle = 'white' // Weiße Farbe. Unser Rechteck wird mit dieser Farbe gefüllt.
 
 // Rechteck zeichnen
-kontext.beginPath(); // Der Browser soll anfangen, eine Form zu zeichnen (Position und Größe werden unten definiert)
-kontext.rect(100, 100, 50, 150); // Ein Rechteck bei der Position x=100, y=100 mit einer Breite von 50 Pixels und Höhe von 150
-kontext.fill(); // Den Rechteck mit weißer Farbe füllen (Farbe wurde Oben definiert mit "kontext.fillStyle")</code></pre>
-                </div>
-                <p><strong>Sie werden momentan kein Rechteck sehen, wenn sie die HTML Seite öffnen, da der<br>Skript überhaupt nicht läuft.</strong> Das ist aber leicht zu fixen. Unter unserem &lt;canvas&gt; Element<br>in index.html, fügen sie das ein:</p>
-                <div class="code-block">
-                    <pre><code class="language-html">&lt;script src="script.js"&gt;&lt;/script&gt;</code></pre>
-                </div>
+kontext.beginPath() // Der Browser soll anfangen, eine Form zu zeichnen (Position und Größe werden unten definiert)
+kontext.rect(100, 100, 50, 150) // Ein Rechteck bei der Position x=100, y=100 mit einer Breite von 50 Pixels und Höhe von 150
+kontext.fill() // Den Rechteck mit weißer Farbe füllen (Farbe wurde Oben definiert mit "kontext.fillStyle")</code></pre>
+            </div>
+            <p><strong>Sie werden momentan kein Rechteck sehen, wenn sie die HTML Seite öffnen, da <u>der Skript überhaupt nicht läuft.</u></strong> Das ist aber leicht zu fixen. Unter unserem &lt;canvas&gt; Element<br>in index.html, fügen sie das ein:</p>
+            <div class="code-block">
+                <pre><code class="language-html">&lt;script src="script.js"&gt;&lt;/script&gt;</code></pre>
+            </div>
+            <p>Mit der &lt;script&gt; Tag wird unser JavaScript-Code ausgeführt.</p>
+
+
+            <h1 class="title">Schritt 5: Schläger</h1>
+            <hr>
+            <p>Um den Prozess der Rechteckzeichnung zu vereinfachen, definieren wir eine Funktion, die einen weißen Rechteck zeichnet. Wir nehmen unseren Code, den wir im letzten Schritt geschrieben haben und fügen ihn in eine Funktiondefinition ein:</p>
+            <div class="code-block">
+                <pre><code class="language-js">const spiel_canvas = document.getElementById('mein-spiel') // Referenz zur Canvas
+const kontext = spiel_canvas.getContext('2d') // 2D Kontext von unserem Canvas
+
+kontext.fillStyle = 'white' // Wir werden alle Figuren weiß zeichnen, also mussen wir die Farbe nur einmal einstellen
+
+// Eine Funktion, die einen weißen Rechteck zeichnet
+function zeichne_rechteck(x_position, y_position, breite, hoehe) {
+    kontext.beginPath()
+    kontext.rect(x_position, y_position, breite, hoehe)
+    kontext.fill()
+}
+
+zeichne_rechteck(100, 200, 50, 200) // Zeichne einen Rechnet bei x=100, y=200 mit der Breite 50 und die Höhe 200</code></pre>
+            </div>
+            <p>So haben wir eine Funktion names <u>zeichne_rechteck</u> definiert mit der Parametern <u>x_position</u>, <u>y_position</u>, <u>breite</u>, und <u>hoehe</u> (Höhe).<br><br>Um zu sehen, ob der Code funktioniert, rufen sie die Funktion mit verschiedenen Parametern auf, wie oben dargestellt wird.</p>
+            <br><br>
+            <p>Damit der Schläger sich bewegen kann, mussen wir seine Position speichern. <strong>Definieren Sie zwei Variablen, jeweils eine für die X und Y position des Schlägers</strong> (Definieren Sie die Variablen am Besten oben im Skript-Datei).</p>
+            <div class="code-block">
+                <pre><code class="language-js">let schlaeger_x_position = 100
+let schlaeger_y_position = 100</code></pre>
+            </div>
+            <p>Auch was für uns später hilfreich wäre, ist die Größe von unserem Schläger:</p>
+            <div class="code-block">
+                <pre><code class="language-js">const schlaeger_breite = 20
+const schlaeger_hoehe = 100</code></pre>
+            </div>
+            <p>Aktualisieren Sie nun den Code für das Zeichnen des Schlägers:</p>
+            <div class="code-block">
+                <pre><code class="language-js">zeichne_rechteck(schlaeger_x_position, schlaeger_y_position, schlaeger_breite, schlaeger_hoehe)</code></pre>
+            </div>
+            <br><br><br><br>
+            <p>Damit der Schläger in der Mitte der Canvas strartet, sollen wir die neue Position ausrechnen. Aktualisieren Sie die Definition für <u>schlaeger_y_position</u>:</p>
+            <div class="code-block">
+                <pre><code class="language-js">const schlaeger_y_position = spiel_canvas.height / 2</code></pre>
             </div>
         </div>
         <script src="prism/prism.js"></script>
