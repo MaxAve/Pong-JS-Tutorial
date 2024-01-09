@@ -9,6 +9,8 @@
         <div id="main">
             <h1 class="title"><u>Lass uns ein Spiel programmieren!</u></h2>
             <p>Dies ist ein Step-by-Step Tutorial, der Ihnen zeigen wird, wie Sie das Spiel "Pong"   mit HTML und JavaScript erstellen können. Scrolle weiter und nach eine oder zwei Stunden werden Sie ein komplettes, selbst-gemachtes Pong-Spiel haben! Nachdem Sie  fertig sind, können Sie diesen neuen Wissen benutzen, um an diesen Spiel weiterzuarbeiten  oder sogar eine neuen selber erstellen.</p>
+            <p>Für jeden Objekt (Spieler-Schläger, Komputer-Schläger, Ball) definiere ich in diesem Tutorial individuelle Variablen für die Positionen, Geschwindigkeiten, Größen, usw.. Ich konnte natürlich JavaScript-Objekte oder Klassen benutzen, um den Code besser zu strukturieren, aber da das hier Anfängerfreundlich sein soll, benutze ich keine, da Variablen vielleicht für manchen einfacher zu benutzen und verstehen sind. Falls Sie doch zu viele Variablen chaotisch finden, können Sie natürlich auch die obengenannte Strukturen benutzen. Ich empfehle aber, als erstes diesen Code zu benutzen, und danach können Sie es ändern, so wie Sie es haben wollen.</p>
+            <br>
             <p class="game-caption"><strong>Das Endergebenis (nutze Pfeiltasten um zu spielen)</strong></p>
             <canvas id="pong" width="800" height="500"></canvas>
             <script src="pong.js"></script>
@@ -16,6 +18,12 @@
             <h1 class="title">Vorwissen</h2>
             <hr>
             <p>Um diesen Spiel zu programmieren, musst du die <u>Grundlagen</u> von HTML, CSS, und JavaScript kennen. Ich werde es versuchen, diesen Tutorial so Anfängerfreundlich zu machen wie ich das kann, Sie werden aber trotzdem irgendein Grundwissen von HTML/CSS/JavaScript brauchen.</p>
+            
+            <h1 class="title">Ein Tipp</h2>
+            <hr>
+            <p>Falls Sie bei irgendeinem Schritt irgendetwas falsch gemacht haben, clicken Sie auf die rechte Maustaste, gehen Sie auf "Untersuchen" (auf Englisch - "Inspect"). Eine Art Fenster soll auf der rechte Seite geöffnet werden sein. Gehen Sie darauf und clicken Sie auf <strong>"Console"</strong>. <strong>Hier werden Fehlermeldungen gezeigt, was beim Programmieren SEHR hilfreich sein kann.</strong></p>
+            <img src="images/screenshot3.png" alt="Clicken Sie auf Untersuchen">
+            <img src="images/screenshot4.png" alt="Ein Fenster wird rechts geöffnet. Clicken Sie auf Console, dort werden Fehlermeldungen angezeigt.">
 
             <h1 class="title">Schritt 1: index.html</h1>
             <hr>
@@ -73,10 +81,10 @@ background-color: black;
             <hr>
             <p>Nun haben wir einen schwarzen, leeren Canvas. Wir brauchen aber erstmal zwei Schläger, womit wir spielen werden.<br><br>Erstmal brauchen wir einen Skript. Dies schreiben wir mit JavaScript. Erstellen Sie als erstes eine weitere Datei namens <u>script.js</u> mit folgendem Quellcode:</p>
             <div class="code-block">
-                <pre><code class="language-js">const spiel_canvas = document.getElementById('mein-spiel') // Referenz zur Canvas
-const kontext = spiel_canvas.getContext('2d') // 2D Kontext von unserem Canvas</code></pre>
+                <pre><code class="language-js">const spielCanvas = document.getElementById('mein-spiel') // Referenz zur Canvas
+const kontext = spielCanvas.getContext('2d') // 2D Kontext von unserer Canvas</code></pre>
             </div>
-            <p>Was macht dieses Code denn wohl?<br><br>Die erste Zeile erstellt einen Objekt namens "spiel_canvas", die einen HTML Element mit einer ID "mein-spiel" <a target="_blank", href="https://www.w3schools.com/jsref/met_document_getelementbyid.asp">referenziert</a>. Das ist tatsächlich diesselbe ID, die unserer Canvas hat. <strong>Also ist dieser Objekt nun eine Referenz an unser HTML Canvas</strong>. Dies brauchen wir später.<br><br>Die zweite Zeile ist viel interresanter. Wir definieren ein Objekt "kontext". Dies ist der 2D Kontext von unserer Canvas.<strong> Die 2D Kontext brauchen wir, um 2D Graphiken auf unser Canvas zeichnen zu können.</strong></p>
+            <p>Was macht dieses Code denn wohl?<br><br>Die erste Zeile erstellt einen Objekt namens "spielCanvas", die einen HTML Element mit einer ID "mein-spiel" <a target="_blank", href="https://www.w3schools.com/jsref/met_document_getelementbyid.asp">referenziert</a>. Das ist tatsächlich diesselbe ID, die unserer Canvas hat. <strong>Also ist dieser Objekt nun eine Referenz an unser HTML Canvas</strong>. Dies brauchen wir später.<br><br>Die zweite Zeile ist viel interresanter. Wir definieren ein Objekt "kontext". Dies ist der 2D Kontext von unserer Canvas.<strong> Die 2D Kontext brauchen wir, um 2D Graphiken auf unser Canvas zeichnen zu können.</strong></p>
             <br><br>
             <p><strong>Lass uns einen Rechteck auf unser Canvas zeichnen.</strong> Fügen Sie dieses Code unter den ersten zwei Zeilen ein:</p>
             <div class="code-block">
@@ -96,43 +104,310 @@ kontext.fill() // Den Rechteck mit weißer Farbe füllen (Farbe wurde Oben defin
 
             <h1 class="title">Schritt 5: Schläger</h1>
             <hr>
-            <p>Um den Prozess der Rechteckzeichnung zu vereinfachen, definieren wir eine Funktion, die einen weißen Rechteck zeichnet. Wir nehmen unseren Code, den wir im letzten Schritt geschrieben haben und fügen ihn in eine Funktiondefinition ein:</p>
+            <p>Wir definieren eine Funktion, die einen weißen Rechteck zeichnet (damit unser Code nicht unlesbar wird, da wir mehrere Rechtecke zeichnen werden müssen). Dafür nehmen wir unsere Code, den wir im letzten Schritt geschrieben haben und fügen sie in eine Funktiondefinition ein:</p>
             <div class="code-block">
-                <pre><code class="language-js">const spiel_canvas = document.getElementById('mein-spiel') // Referenz zur Canvas
-const kontext = spiel_canvas.getContext('2d') // 2D Kontext von unserem Canvas
+                <pre><code class="language-js">const spielCanvas = document.getElementById('mein-spiel') // Referenz zur Canvas
+const kontext = spielCanvas.getContext('2d') // 2D Kontext von unserer Canvas
 
 kontext.fillStyle = 'white' // Wir werden alle Figuren weiß zeichnen, also mussen wir die Farbe nur einmal einstellen
 
 // Eine Funktion, die einen weißen Rechteck zeichnet
-function zeichne_rechteck(x_position, y_position, breite, hoehe) {
-    kontext.beginPath()
-    kontext.rect(x_position, y_position, breite, hoehe)
-    kontext.fill()
+function zeichneRechteck(xPosition, yPosition, breite, hoehe) {
+	kontext.beginPath()
+	kontext.rect(xPosition, yPosition, breite, hoehe)
+	kontext.fill()
 }
 
-zeichne_rechteck(100, 200, 50, 200) // Zeichne einen Rechnet bei x=100, y=200 mit der Breite 50 und die Höhe 200</code></pre>
+zeichneRechteck(100, 200, 50, 200) // Zeichne einen Rechnet bei x=100, y=200 mit der Breite 50 und die Höhe 200</code></pre>
             </div>
-            <p>So haben wir eine Funktion names <u>zeichne_rechteck</u> definiert mit der Parametern <u>x_position</u>, <u>y_position</u>, <u>breite</u>, und <u>hoehe</u> (Höhe).<br><br>Um zu sehen, ob der Code funktioniert, rufen sie die Funktion mit verschiedenen Parametern auf, wie oben dargestellt wird.</p>
+            <p>So haben wir eine Funktion names <u>zeichneRechteck</u> definiert mit der Parametern <u>xPosition</u>, <u>yPosition</u>, <u>breite</u>, und <u>hoehe</u> (Höhe).<br><br>Um zu sehen, ob der Code funktioniert, rufen sie die Funktion mit verschiedenen Parametern auf, wie oben auf der unterste Zeile dargestellt wird.</p>
             <br><br>
-            <p>Damit der Schläger sich bewegen kann, mussen wir seine Position speichern. <strong>Definieren Sie zwei Variablen, jeweils eine für die X und Y position des Schlägers</strong> (Definieren Sie die Variablen am Besten oben im Skript-Datei).</p>
+            <p>Damit der Schläger sich bewegen kann, mussen wir seine Position auf dem Canvas mit Variablen beschreiben. <strong>Definieren Sie zwei Variablen, jeweils eine für die X und Y position des Schlägers</strong> (definieren Sie die Variablen am Besten in der obersten Zeilen im Skript-Datei, jedoch unter den spielCanvas und kontext).</p>
             <div class="code-block">
-                <pre><code class="language-js">let schlaeger_x_position = 100
-let schlaeger_y_position = 100</code></pre>
+                <pre><code class="language-js">let schlaegerXPosition = 100
+let schlaegerYPosition = 100</code></pre>
             </div>
-            <p>Auch was für uns später hilfreich wäre, ist die Größe von unserem Schläger:</p>
+            <p>Auch hilfreich wäre es Variablen zu haben, die die Größe unseres Schlägers beschreiben (und auch die Größe vom zukünftigen Computer-Schläger). Diese definieren Sie bitte über schlaegerXPosition und schlaegerYPosition:</p>
             <div class="code-block">
-                <pre><code class="language-js">const schlaeger_breite = 20
-const schlaeger_hoehe = 100</code></pre>
+                <pre><code class="language-js">const schlaegerBreite = 20
+const schlaegerHoehe = 100</code></pre>
             </div>
             <p>Aktualisieren Sie nun den Code für das Zeichnen des Schlägers:</p>
             <div class="code-block">
-                <pre><code class="language-js">zeichne_rechteck(schlaeger_x_position, schlaeger_y_position, schlaeger_breite, schlaeger_hoehe)</code></pre>
+                <pre><code class="language-js">zeichneRechteck(schlaegerXPosition, schlaegerYPosition, schlaegerBreite, schlaegerHoehe)</code></pre>
             </div>
             <br><br><br><br>
-            <p>Damit der Schläger in der Mitte der Canvas strartet, sollen wir die neue Position ausrechnen. Aktualisieren Sie die Definition für <u>schlaeger_y_position</u>:</p>
+            <p>Damit der Schläger in der Mitte der Canvas strartet, sollen wir die neue Position ausrechnen. Aktualisieren Sie die Definition für <u>schlaegerYPosition</u>. Die Y-Position des Sclägers wird auf die Hälfte von der Höhe der Canvas eingestellt, <strong>also den Mittelpunkt davon.</strong></p>
             <div class="code-block">
-                <pre><code class="language-js">const schlaeger_y_position = spiel_canvas.height / 2</code></pre>
+                <pre><code class="language-js">let schlaegerYPosition = spielCanvas.height / 2</code></pre>
             </div>
+            <p><strong>WICHTIG! Da wir die Höhe vom Canvas in dieser Rechnung benutzen, mussen wir DIESE VARIABLE UNTER DER DEFINITION VON <u>spielCanvas</u> DEFINIEREN!</strong></p>
+            <br><br><br><br>
+            <p>Sie haben wahrscheinlich bemerkt, dass der Schläger ein wenig <strong>unter</strong> der Mitte von der Canvas gezeichnet wird. Das liegt daran, dass die Position des Rechteckes in wirklichkeit die Position von der oben-linkerer Ecke beschreibt.</p>
+            <img src="images/screenshot1.png" alt="Screenshot: der Schläger wird unter der Mitte der Canvas gezeichnet.">
+            <p>Damit der Schläger wirklich in der Mitte gezeichnet wird, müssen wir die Hälfte der Höhe vom Schläger von der Hälfte der Höhe von der Canvas subtrahieren:</p>
+            <div class="code-block">
+                <pre><code class="language-js">let schlaegerYPosition = (spielCanvas.height / 2) - (schlaegerHoehe / 2)</code></pre>
+            </div>
+            <br><br><br><br>
+            <p>Die JavaScript-Datei soll nun ungefähr so aussehen:</p>
+            <div class="code-block">
+                <pre><code class="language-js">const spielCanvas = document.getElementById('mein-spiel') // Referenz zur Canvas
+const kontext = spielCanvas.getContext('2d') // 2D Kontext von unserer Canvas
+
+// Breite bzw. Höhe der Schläger
+const schlaegerBreite = 20
+const schlaegerHoehe = 100
+
+// Position vom Schläger (Spieler)
+let schlaegerXPosition = 100
+let schlaegerYPosition = (spielCanvas.height / 2) - (schlaegerHoehe / 2)
+
+kontext.fillStyle = 'white' // Wir werden alle Figuren weiß zeichnen, also mussen wir die Farbe nur einmal einstellen
+
+// Eine Funktion, die einen weißen Rechteck zeichnet
+function zeichneRechteck(xPosition, yPosition, breite, hoehe) {
+	kontext.beginPath()
+	kontext.rect(xPosition, yPosition, breite, hoehe)
+	kontext.fill()
+}
+
+// Zeichne den Schläger des Spielers
+zeichneRechteck(schlaegerXPosition, schlaegerYPosition, schlaegerBreite, schlaegerHoehe)</code></pre>
+            </div>
+        
+            <h1 class="title">Schritt 6: Spielschleife</h1>
+            <hr>
+            <p>Videospiele benutzen eine sogennannte "Spielschleife" um sie interaktiv zu machen. Die Spielschleife aktualisiert Dinge wie z.B. die Positionen von Objekten (in unserem Fall - die Schläger und den Ball) und zeichnet sie. Die Schleife macht dies Dutzende Male pro Sekunde (normalerweise 60 mal pro Sekunde, dies hängt aber davon ab, auf welche Bildwiederholfrequenz euer Rechner eingestellt ist). Professionelle Spiele benutzen oft mehrere Schleifen (z.B. eine für das Zeichnen der Objekte, eine, die die Positionen der Objekte aktualisiert, usw.), unser Spiel ist aber sehr klein und simpel. Wir werden also nur eine benutzen.</p>
+            <br>
+            <p>Wie machen wir das? Eine Option ist es, eine endlose <a href="https://www.w3schools.com/js/js_loop_while.asp" target="_blank">while</a> Schleife zu schreiben, das ist aber wegen mehreren Grunden keine gute Idee. Eine um vielfach bessere Lösung ist es, eine Funktion names "spielschleife" zu definieren, die <a href="https://www.w3schools.com/jsref/met_win_requestanimationframe.asp" target="_blank">window.requestAnimationFrame()</a> aufruft. window.requestAnimationFrame() ist eine einegbaute Methode genau für unser zweck bestimmt. Wie es im Name steht, stellt requestAnimationFrame() eine Anfrage an den Browser, die Bildschirm zu aktualisieren. Die Funktiondefinition sieht so aus:</p>
+            <div class="code-block">
+              <pre><code class="language-js">function spielschleife() {
+	window.requestAnimationFrame(spielschleife) // Anfrage für das nächste Bild
+}
+
+spielschleife() // Startet die Spielschleife</code></pre>
+            </div>
+            <p>Diesen Code-Auszug sollen Sie in die unterste Zeile in ihrem Skript-Datei einfügen.</p>
+            <br><br>
+            <p>Nun können wir den Funktionaufruf zeichneRechteck in unsere neue Spielschleife verschieben:</p>
+            <div class="code-block">
+              <pre><code class="language-js">function spielschleife() {
+	// Zeichne den Schläger des Spielers
+	zeichneRechteck(schlaegerXPosition, schlaegerYPosition, schlaegerBreite, schlaegerHoehe)
+	
+	window.requestAnimationFrame(spielschleife) // Anfrage für das nächste Bild
+}
+
+spielschleife() // Startet die Spielschleife</code></pre>
+            </div>
+            <p>Lass uns Testen, ob die Schleife tatsächlich funktioniert. Wir schreiben eine Codezeile, die den Schläger nach jeder Bildschirmaktualisierung nach oben um ein Pixel verschiebt. Die Spielschleife soll danach so aussehen:</p>
+            <div class="code-block">
+              <pre><code class="language-js">function spielschleife() {
+	zeichneRechteck(schlaegerXPosition, schlaegerYPosition, schlaegerBreite, schlaegerHoehe) // Zeichne den Schläger des Spielers
+	
+	schlaegerYPosition -= 1 // Subtrahiere 1 von der Y-Position des Schlägers (bewegt ihn 1 Pixel nach oben nach jeder Bildschirmaktualisierung)
+
+	window.requestAnimationFrame(spielschleife) // Anfrage für das nächste Bild
+}
+
+spielschleife() // Startet die Spielschleife</code></pre>
+            </div>
+            <p>Sie werden aber sehen, dass der Schläger wirk sich nicht zu bewegen, sonder wird es immer länger. Das liegt daran, dass wir einen neuen Rechteck jedes mal zeichnen, ohne den Alten zu löschen.</p>
+            <img src="images/screenshot2.png" alt="Screenshot: der Schläger wirkt sich nicht zu bewegen, sondern länger werden.">
+            <p>Damit alles richtig funktioniert, soll das Programm jedes mal die ganze Canvas löschen und alle Objekte darauf wieder neuzeichnen. Das machen wir mit der <a href="https://www.w3schools.com/jsref/canvas_clearrect.asp" target="_blank">clearRect</a> Methode so:</p>
+            <div class="code-block">
+              <pre><code class="language-js">function spielschleife() {
+	kontext.clearRect(0, 0, spielCanvas.width, spielCanvas.height); //  Lösche die Canvas bevor andere Objekte gezeichnet werden können
+
+	zeichneRechteck(schlaegerXPosition, schlaegerYPosition, schlaegerBreite, schlaegerHoehe) // Zeichne den Schläger des Spielers
+	
+	schlaegerYPosition -= 1 // Subtrahiere 1 von der Y-Position des Schlägers (bewegt ihn 1 Pixel nach oben nach jeder Bildschirmaktualisierung)
+
+	window.requestAnimationFrame(spielschleife) // Anfrage für das nächste Bild
+}
+
+spielschleife() // Startet die Spielschleife</code></pre>
+            </div>
+            <p>Jetzt soll der Schläger ohne Probleme nach oben schweben.</p>
+            
+			<h1 class="title">Schritt 7: Controller</h1>
+            <hr>
+            <p>Jetzt können wir endlich unser Spiel interaktiv machen. Wir programmieren den "Controller" für unser Schläger. Der Schläger soll sich bewegen, wenn der Spieler eine Pfeiltasten drückt. Als ersten definieren wir Variablen für die Key-Codes für Pfeiltasten (damit es mehr lesbar wird). Key-Codes sind einfach Nummern, die uns sagen, welche Taste gedrückt wird. In JavaScript steht die Nummer 38 für die Pfeiltaste nach oben und die Nummer 40 für die Pfeiltaste nach unten. Auch definieren wir die Geschwindigkeit für unser Schläger.</p>
+            <div class="code-block">
+              <pre><code class="language-js">const pfeiltasteOben = 38
+const pfeiltasteUnten = 40
+const schlaegerBewegungsgeschwindigkeit = 5</code></pre>
+            </div>
+            <p>Jetzt definieren wir eine <a href="https://www.geeksforgeeks.org/javascript-anonymous-functions/" target="_blank">anonyme Funktion</a>, die den Schläger nach oben/unten verschiebt, wenn die jeweilige Pfeiltasten gedrückt werden. Die Seite wartet darauf, dass eine Taste gedrückt wird. Wenn eine gedrückt wird, dann wird dieser Funktion aufgeruft. <strong>Achtung!</strong> Diese Funktion soll <strong>NICHT</strong> in die Spielschleife definiert werden!</p>
+            <div class="code-block">
+              <pre><code class="language-js">// Controller für den Schläger
+document.onkeydown = function(event) {
+	if(event.keyCode === pfeiltasteOben) {
+		schlaegerYPosition -= schlaegerBewegungsgeschwindigkeit
+	} else if(event.keyCode === pfeiltasteUnten) {
+		schlaegerYPosition += schlaegerBewegungsgeschwindigkeit
+	}
+}</code></pre>
+            </div>
+			<p>Wenn Sie nun das Spiel austesten, merken Sie wahrscheinlich, dass der Schläger sich ziemlich komisch bewegt. Es bewegt sich ein wenig, danach stoppt es, und dann geht es wieder. Um das zu fixen, definieren wir noch eine Variable, die für die Geschwindigkeit des Schlägers zuständig ist.</p>
+			<div class="code-block">
+				<pre><code class="language-js">let schlaegerYGeschwindigkeit = 0</code></pre>
+			</div>
+			<p>Aktualisieren Sie die Controller-Code:</p>
+			<div class="code-block">
+				<pre><code class="language-js">// Controller für den Schläger
+document.onkeydown = function(event) {
+	if(event.keyCode === pfeiltasteOben) {
+		schlaegerYGeschwindigkeit = -schlaegerBewegungsgeschwindigkeit // Negative Geschwindigkeit = nach oben gehen
+	} else if(event.keyCode === pfeiltasteUnten) {
+		schlaegerYGeschwindigkeit = schlaegerBewegungsgeschwindigkeit
+	}
+}</code></pre>
+			</div>
+			<p>Da wir nun nicht die eigentliche Position des Schlägers aktualisieren, sondern nur die Y-Geschwindigkeit, sollen wir eine Code-Zeile einfügen, die die Position aktualisiert. Wir addieren einfach die zurzeitige Position und die Geschwindigkeit. Fügen Sie diese Zeile in die Spielschleife-Funktion ein:</p>
+			<div class="code-block">
+				<pre><code class="language-js">// Aktualisiere die Position des Schlägers in Abhängigkeit von seiner Geschwindigkeit
+schlaegerYPosition += schlaegerYGeschwindigkeit</code></pre>
+			</div>
+			<p>Damit der Schläger Stoppt, wenn der Spieler auf <strong>KEINE</strong> Pfeiltaste drückt, sollen wir eine weitere Funktion dafür definieren. Diesmal wird es ausgeführt, wenn der Spieler eine Taste loslässt. Auch diese soll <strong>AUßER</strong> der Spielschleife-Funktion definiert werden.</p>
+			<div class="code-block">
+				<pre><code class="language-js">// Wenn der Spieler eine Taste loslässt, dann soll der Schläger aufhören, sich zu bewegen
+document.onkeyup = function(event) {
+	schlaegerYGeschwindigkeit = 0
+}</code></pre>
+			</div>
+            <p>Ein letztes Problem, das wir noch haben ist, dass <strong>der Schläger aus der Sicht verschwinden kann, wenn er zu weit verschoben wird</strong>. Das fixen wir, indem wir jedes mal überprüfen, ob der Schläger schon am Rand des Sichtfeldes ist, wenn der Schläger sich nach oben oder unten bewegen muss. Wenn das so ist, bewegen wir ihn einfach nicht weiter. <strong>Wir fügen die Zeile, die die Position des Schlägers aktualisiert in eine if-Answeisung ein</strong>. Diese Anweisung wird jedes mal überprüfen, ob der Schläger schon am Rand der Canvas ist, bevor es seine Position aktualisiert:</p>
+            <div class="code-block">
+                <pre><code class="language-js">// Verschiebe den Schläger, WENN er sich nach OBEN bewegt UND NICHT am OBEREN
+// RAND ist, ODER WENN es sich nach UNTEN bewegt UND NICHT am UNTEREN RAND ist.
+if( ( schlaegerYGeschwindigkeit < 0 && schlaegerYPosition > 0 ) || ( schlaegerYGeschwindigkeit > 0 && (schlaegerYPosition + schlaegerHoehe) < spielCanvas.height ) ) {
+    // Aktualisiere die Position des Schlägers in Abhängigkeit von seiner Geschwindigkeit
+    schlaegerYPosition += schlaegerYGeschwindigkeit
+}</code></pre>
+			</div>
+			<br><br><br><br>
+			<p><strong>Lass uns alles zusammenfassen, was wir bis jetzt geschrieben haben.</strong></p>
+            <p>Bis jetzt haben wir einen Schläger, der sich frei auf der Y-Achse bewegen kann, jedoch nicht weiter als die Rände des Sichtfeldes.</p>
+			<div class="code-block">
+				<pre><code class="language-js">const spielCanvas = document.getElementById('mein-spiel') // Referenz zur Canvas
+const kontext = spielCanvas.getContext('2d') // 2D Kontext von unserer Canvas
+
+// Breite bzw. Höhe der Schläger
+const schlaegerBreite = 20
+const schlaegerHoehe = 100
+
+// KeyCodes für die Pfeiltasten
+const pfeiltasteOben = 38
+const pfeiltasteUnten = 40
+
+// Schläger
+let schlaegerXPosition = 100
+let schlaegerYPosition = (spielCanvas.height / 2) - (schlaegerHoehe / 2)
+let schlaegerYGeschwindigkeit = 0
+const schlaegerBewegungsgeschwindigkeit = 5 // 5 Pixeln pro Frame
+
+kontext.fillStyle = 'white' // Wir werden alle Figuren weiß zeichnen, also mussen wir die Farbe nur einmal einstellen
+
+// Eine Funktion, die einen weißen Rechteck zeichnet
+function zeichneRechteck(xPosition, yPosition, breite, hoehe) {
+	kontext.beginPath()
+	kontext.rect(xPosition, yPosition, breite, hoehe)
+	kontext.fill()
+}
+
+// Controller für den Schläger
+document.onkeydown = function(event) {
+	if(event.keyCode === pfeiltasteOben) {
+		schlaegerYGeschwindigkeit = -schlaegerBewegungsgeschwindigkeit // Negative Geschwindigkeit = nach oben gehen
+	} else if(event.keyCode === pfeiltasteUnten) {
+		schlaegerYGeschwindigkeit = schlaegerBewegungsgeschwindigkeit
+	}
+}
+
+// Wenn der Spieler eine Taste loslässt, dann soll der Schläger aufhören, sich zu bewegen
+document.onkeyup = function(event) {
+	schlaegerYGeschwindigkeit = 0
+}
+
+function spielschleife() {
+	// Verschiebe den Schläger, WENN er sich nach OBEN bewegt UND NICHT am OBEREN
+    // RAND ist, ODER WENN es sich nach UNTEN bewegt UND NICHT am UNTEREN RAND ist.
+    if( ( schlaegerYGeschwindigkeit < 0 && schlaegerYPosition > 0 ) || ( schlaegerYGeschwindigkeit > 0 && (schlaegerYPosition + schlaegerHoehe) < spielCanvas.height ) ) {
+        // Aktualisiere die Position des Schlägers in Abhängigkeit von seiner Geschwindigkeit
+        schlaegerYPosition += schlaegerYGeschwindigkeit
+    }
+
+    // Lösche die Canvas bevor andere Objekte gezeichnet werden können
+	kontext.clearRect(0, 0, spielCanvas.width, spielCanvas.height); 
+
+    // Zeichne den Schläger des Spielers
+	zeichneRechteck(schlaegerXPosition, schlaegerYPosition, schlaegerBreite, schlaegerHoehe) 
+
+    // Anfrage für das nächste Frame (Bild)
+	window.requestAnimationFrame(spielschleife)
+}
+
+spielschleife() // Startet die Spielschleife</code></pre>
+			</div>
+
+            <h1 class="title">Schritt 8: Der Ball</h1>
+            <hr>
+            <p>Jetzt können wir endlich mal den Ball programmieren. Der Ball in Pong ist nichts außer einem weißem Quader, der mit konstanter Geschwindigkeit durch den Raum fliegt und ab und zu von Wände und Schläger abprallt. Zuerst definieren wir die benötigte Variablen für den Ball. Das wären die Größe, die X- und Y-Position, und die X- und Y-Geschwindigkeit.</p>
+            <div class="code-block">
+                <pre><code class="language-js">// Variablen für den Ball
+const ballGroesse = 20 // Breite und Höhe des Balls (es ist ein Quader, die beide Werte sind gleich)
+let ballXPosition = (spielCanvas.width / 2) - (ballGroesse / 2) // Mitte der Canvas (X-Achse)
+let ballYPosition = (spielCanvas.height / 2) - (ballGroesse / 2) // Mitte der Canvas (Y-Achse)
+let ballXGeschwindigkeit = -3
+let ballYGeschwindigkeit = -3</code></pre>
+			</div>
+            <p>Wir fügen einen weiteren aufruf der zeichneRechteck Funktion ein, damit unser Ball gezeichnet werden kann. Fügen Sie diese Zeile in die Spielschleife-Funktion ein:</p>
+            <div class="code-block">
+                <pre><code class="language-js">// Zeichne den Ball
+zeichneRechteck(ballXPosition, ballYPosition, ballGroesse, ballGroesse)</code></pre>
+			</div>
+            <p>Auch in der Spielschleife sollen wir die Position des Balles in Abhang von der Geschwindigkeit aktualisieren (sowie wir das mit dem Schläger gemacht haben).</p>
+            <div class="code-block">
+                <pre><code class="language-js">// Aktualisiere die Position des Balles in Abhängigkeit von seiner Geschwindigkeit
+ballXPosition += ballXGeschwindigkeit
+ballYPosition += ballYGeschwindigkeit</code></pre>
+			</div>
+            <p>Jetzt können wir die Abprall-Funktion programmieren. Es ist eigentlich ziemlich einfach. Alles, was wir machen mussen ist, die Y-Geschwindigkeit des Balles umkehren, wenn er einen Wand trifft.</p>
+            <img src="images/darstellung.png" alt="Wenn der Ball ab einer Wand abprallt, können wir seine Y-Geschwindigkeit umkehren (z.B. -3 wird zu 3).">
+            <p>Wir definieren eine Funktion namens "ballAbprall". Diese Funktion wird prüfen, ob der Ball an einem Rand der Canvas ist und wenn das stimmt, kehrt es seine Y-Geschwindikeit um.</p>
+            <p>Als erstes machen wir es nur für den oberen Rand:</p>
+            <div class="code-block">
+                <pre><code class="language-js">function ballAbprall() {
+    if(ballYPosition <= 0) {
+        // Abprall ab dem oberem Rand (soll jetzt nach oben gehen)
+        ballYGeschwindigkeit = Math.abs(ballYGeschwindigkeit)
+    }
+}</code></pre>
+			</div>
+            <p>Hier wird die Y-Geschwindigkeit mit <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/abs" target="_blank">Math.abs()</a> positiv gemacht, weshalb es sich ab dem Abprall nach Unten bewegen wird.</p>
+            <p>Um es zu testen, fügen Sie die Funktionaufruf für ballAbprall() in die Spielschleife ein.</p>
+            <div class="code-block">
+                <pre><code class="language-js">function spielschleife() {
+    ...
+
+    ballAbprall()
+
+    ...
+}</code></pre>
+			</div>
+            <p>Und nun für den unteren Canvas-Rand:</p>
+            <div class="code-block">
+                <pre><code class="language-js">function ballAbprall() {
+    if(ballYPosition <= 0) {
+        // Abprall ab dem oberem Rand (soll jetzt nach unten gehen)
+        ballYGeschwindigkeit = Math.abs(ballYGeschwindigkeit)
+    } else if((ballYPosition + ballGroesse) >= spielCanvas.height) {
+        // Abprall ab dem unterem Rand (soll jetzt nach oben gehen)
+        ballYGeschwindigkeit = -Math.abs(ballYGeschwindigkeit)
+    }
+}</code></pre>
+			</div>
         </div>
         <script src="prism/prism.js"></script>
     </body>

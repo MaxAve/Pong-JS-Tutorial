@@ -88,24 +88,24 @@ window.addEventListener("keydown", function(e) {
     }
 }, false);
 
+// Move paddle 1 with arrow keys
+document.onkeydown = function(e) {
+  if(e.keyCode === 38) {
+      paddle1VelocitY = -10;
+  } else if(e.keyCode === 40) {
+      paddle1VelocitY = 10;
+  }
+};
+
+document.onkeyup = (e) => {
+    paddle1VelocitY = 0;
+}
+
 // Game loop
 function gameLoop() {
     // Update ball position based on its current velocity
     ballX += ballVelocityX;
     ballY += ballVelocityY;
-
-    // Move paddle 1 with arrow keys
-    document.onkeydown = function(e) {
-        if(e.keyCode === 38) {
-            paddle1VelocitY = -10;
-        } else if(e.keyCode === 40) {
-            paddle1VelocitY = 10;
-        }
-    };
-
-    document.onkeyup = (e) => {
-        paddle1VelocitY = 0;
-    }
 
     paddle1Y += paddle1VelocitY;
 

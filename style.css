@@ -1,14 +1,21 @@
+:root {
+    --pagewidth: 50vw;
+}
+
 h1 {
     margin-top: 100px;
-    color: rgb(131, 36, 115);
-    font-family: Consolas;
+    color: #832473;
     font-size: 30px;
 }
 
+p, li, h1, h2, h3, h4, h5, h6, label {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 p, li {
-    font-family: Consolas;
     color: rgb(0, 0, 0);
-    width: 800px;
+    width: var(--pagewidth);
+    font-size: larger;
 }
 
 body {
@@ -30,7 +37,6 @@ canvas {
 .game-caption {
     margin-bottom: 20px;
     font-size: larger;
-    color: rgb(156, 142, 142);
 }
 
 .paragraph {
@@ -39,7 +45,7 @@ canvas {
 
 .code-block {
     display: inline-block;
-    width: 800px;
+    width: var(--pagewidth);
 }
 
 hr {
@@ -48,4 +54,9 @@ hr {
 
 #main {
     padding-left: 200px;
+}
+
+img {
+    width: var(--pagewidth);
+    height: auto;
 }
