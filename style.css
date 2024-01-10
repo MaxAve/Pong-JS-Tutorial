@@ -1,10 +1,10 @@
 :root {
-    --pagewidth: 50vw;
+    --pagewidth: 60vw;
 }
 
 h1 {
     margin-top: 100px;
-    color: #832473;
+    /*color: #832473;*/
     font-size: 30px;
 }
 
@@ -15,7 +15,7 @@ p, li, h1, h2, h3, h4, h5, h6, label {
 p, li {
     color: rgb(0, 0, 0);
     width: var(--pagewidth);
-    font-size: larger;
+    font-size: 22px;
 }
 
 body {
@@ -49,14 +49,48 @@ canvas {
 }
 
 hr {
+    margin-left: 0px;
     margin-top: -25px;
+    width: var(--pagewidth);
 }
 
 #main {
-    padding-left: 200px;
+    padding-left: calc(18vw + 50px);
+    background-color: white;
 }
 
 img {
-    width: var(--pagewidth);
+    width: 800px;
     height: auto;
+}
+
+#navbar {
+    height: 100%;
+    width: 18vw;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #eaeaea;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+#navbar a {
+    padding-left: 25px;
+    margin-top: 5px;
+    font-size: 22px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
+    display: block;
+}
+
+#navbar a:hover {
+    background-color: rgb(209, 209, 209);
+}
+
+#navbar h2 {
+    padding-left: 25px;
 }

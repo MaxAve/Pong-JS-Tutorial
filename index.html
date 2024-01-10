@@ -6,8 +6,23 @@
         <link href="prism/prism.css" rel="stylesheet"/>
     </head>
     <body>
+        <div id="navbar">
+            <h2>Schritten</h2>
+            <a href="#intro">Einführung</a>
+            <a href="#vorwissen">Vorwissen</a>
+            <a href="#tip">Ein Tipp</a>
+            <a href="#indexhtml">HTML-Seite erstellen</a>
+            <a href="#dercanvas">HTML-Canvas</a>
+            <a href="#stylecss">CSS</a>
+            <a href="#scriptjs">JavaScript</a>
+            <a href="#paddle">Schläger</a>
+            <a href="#gameloop">Spielschleife</a>
+            <a href="#controller">Controller</a>
+            <a href="#ball">Ball</a>
+            <a href="#style">Text und Linie</a>
+        </div>
         <div id="main">
-            <h1 class="title"><u>Lass uns ein Spiel programmieren!</u></h2>
+            <h1 id="intro" class="title"><u>Lass uns ein Spiel programmieren!</u></h2>
             <p>Dies ist ein Step-by-Step Tutorial, der Ihnen zeigen wird, wie Sie das Spiel "Pong"   mit HTML und JavaScript erstellen können. Scrolle weiter und nach eine oder zwei Stunden werden Sie ein komplettes, selbst-gemachtes Pong-Spiel haben! Nachdem Sie  fertig sind, können Sie diesen neuen Wissen benutzen, um an diesen Spiel weiterzuarbeiten  oder sogar eine neuen selber erstellen.</p>
             <p>Für jeden Objekt (Spieler-Schläger, Komputer-Schläger, Ball) definiere ich in diesem Tutorial individuelle Variablen für die Positionen, Geschwindigkeiten, Größen, usw.. Ich konnte natürlich JavaScript-Objekte oder Klassen benutzen, um den Code besser zu strukturieren, aber da das hier Anfängerfreundlich sein soll, benutze ich keine, da Variablen vielleicht für manchen einfacher zu benutzen und verstehen sind. Falls Sie doch zu viele Variablen chaotisch finden, können Sie natürlich auch die obengenannte Strukturen benutzen. Ich empfehle aber, als erstes diesen Code zu benutzen, und danach können Sie es ändern, so wie Sie es haben wollen.</p>
             <br>
@@ -15,17 +30,17 @@
             <canvas id="pong" width="800" height="500"></canvas>
             <script src="pong.js"></script>
 
-            <h1 class="title">Vorwissen</h2>
+            <h1 id="vorwissen" class="title">Vorwissen</h2>
             <hr>
             <p>Um diesen Spiel zu programmieren, musst du die <u>Grundlagen</u> von HTML, CSS, und JavaScript kennen. Ich werde es versuchen, diesen Tutorial so Anfängerfreundlich zu machen wie ich das kann, Sie werden aber trotzdem irgendein Grundwissen von HTML/CSS/JavaScript brauchen.</p>
             
-            <h1 class="title">Ein Tipp</h2>
+            <h1 id="tip" class="title">Ein Tipp</h2>
             <hr>
             <p>Falls Sie bei irgendeinem Schritt irgendetwas falsch gemacht haben, clicken Sie auf die rechte Maustaste, gehen Sie auf "Untersuchen" (auf Englisch - "Inspect"). Eine Art Fenster soll auf der rechte Seite geöffnet werden sein. Gehen Sie darauf und clicken Sie auf <strong>"Console"</strong>. <strong>Hier werden Fehlermeldungen gezeigt, was beim Programmieren SEHR hilfreich sein kann.</strong></p>
             <img src="images/screenshot3.png" alt="Clicken Sie auf Untersuchen">
             <img src="images/screenshot4.png" alt="Ein Fenster wird rechts geöffnet. Clicken Sie auf Console, dort werden Fehlermeldungen angezeigt.">
 
-            <h1 class="title">Schritt 1: index.html</h1>
+            <h1 id="indexhtml" class="title">Schritt 1: HTML-Seite erstellen</h1>
             <hr>
             <p>Als erstes brauchen wir die Grund-HTML-Struktur. Damit erstellen wir eine leere Seite  namens "Pong". Kopiere diesen Quellcode in eine Datei namens <u>index.html</u>; speichere sie  und öffne sie in deinem belibten Browser.</p>
             <div class="code-block">
@@ -40,7 +55,7 @@
 &lt;/html&gt;</code></pre>
             </div>
 
-            <h1 class="title">Schritt 2: Der Canvas</h1>
+            <h1 id="dercanvas" class="title">Schritt 2: Der HTML-Canvas</h1>
             <hr>
             <p>Danach brauchen wir einen <a href="https://www.w3schools.com/html/html5_canvas.asp" target="blank">Canvas</a>. Der Canvas ist ein besonderer Object, der uns  erlaubt, Grafiken darauf zu zeichnen. Auf dem Canvas kann man vielfältige Objekte  zeichnen, z.B.: Vierecke, was ist genau das, was wir benutzen werden.<br><br>Erstelle einen Canvas im &lt;body&gt; bereich so:</p>
             <div class="code-block">
@@ -48,13 +63,13 @@
             </div>
             <p>So erstellen wir einen Canvas mit einer id von "mein-spiel" Die "width" und "height" Parameter (Engl. Breite/Höhe) kontrollieren jeweils die Breite   und die Höhe vom Canvas.</p>
 
-            <h1 class="title">Schritt 3: style.css</h1>
+            <h1 id="stylecss" class="title">Schritt 3: CSS</h1>
             <hr>
             <p>Wenn Sie nun ihre Seite speichern und öffnen, ist es wahrscheinlich, dass Sie keine   Änderungen sehen werden. Das liegt daran, dass der Canvas die selbe Farbe hat wie der   Hintergrund. Lass uns dann eine CSS Datei erstellen, damit wir die Farbe ändern können.<br><br>Erstellen Sie eine neue Datei namens <u>style.css</u> und ändern Sie die Farbe des Canvas Elements:</u></p>
 
             <div class="code-block">
                 <pre><code class="language-css">canvas {
-background-color: black;
+    background-color: black;
 }</code></pre>
             </div>
             <p>Momentan werden Sie wieder nichts neues sehen. Wir mussen die CSS-Datei mit unseren HTML-Seite linken. Im &lt;head&gt; Bereich fügen Sie dies ein:</p>
@@ -77,7 +92,7 @@ background-color: black;
 &lt;/html&gt;</code></pre>
             </div>
 
-            <h1 class="title">Schritt 4: script.js</h1>
+            <h1 id="scriptjs" class="title">Schritt 4: JavaScript</h1>
             <hr>
             <p>Nun haben wir einen schwarzen, leeren Canvas. Wir brauchen aber erstmal zwei Schläger, womit wir spielen werden.<br><br>Erstmal brauchen wir einen Skript. Dies schreiben wir mit JavaScript. Erstellen Sie als erstes eine weitere Datei namens <u>script.js</u> mit folgendem Quellcode:</p>
             <div class="code-block">
@@ -102,7 +117,7 @@ kontext.fill() // Den Rechteck mit weißer Farbe füllen (Farbe wurde Oben defin
             <p>Mit der &lt;script&gt; Tag wird unser JavaScript-Code ausgeführt.</p>
 
 
-            <h1 class="title">Schritt 5: Schläger</h1>
+            <h1 id="paddle" class="title">Schritt 5: Schläger</h1>
             <hr>
             <p>Wir definieren eine Funktion, die einen weißen Rechteck zeichnet (damit unser Code nicht unlesbar wird, da wir mehrere Rechtecke zeichnen werden müssen). Dafür nehmen wir unsere Code, den wir im letzten Schritt geschrieben haben und fügen sie in eine Funktiondefinition ein:</p>
             <div class="code-block">
@@ -176,7 +191,7 @@ function zeichneRechteck(xPosition, yPosition, breite, hoehe) {
 zeichneRechteck(schlaegerXPosition, schlaegerYPosition, schlaegerBreite, schlaegerHoehe)</code></pre>
             </div>
         
-            <h1 class="title">Schritt 6: Spielschleife</h1>
+            <h1 id="gameloop" class="title">Schritt 6: Spielschleife</h1>
             <hr>
             <p>Videospiele benutzen eine sogennannte "Spielschleife" um sie interaktiv zu machen. Die Spielschleife aktualisiert Dinge wie z.B. die Positionen von Objekten (in unserem Fall - die Schläger und den Ball) und zeichnet sie. Die Schleife macht dies Dutzende Male pro Sekunde (normalerweise 60 mal pro Sekunde, dies hängt aber davon ab, auf welche Bildwiederholfrequenz euer Rechner eingestellt ist). Professionelle Spiele benutzen oft mehrere Schleifen (z.B. eine für das Zeichnen der Objekte, eine, die die Positionen der Objekte aktualisiert, usw.), unser Spiel ist aber sehr klein und simpel. Wir werden also nur eine benutzen.</p>
             <br>
@@ -231,7 +246,7 @@ spielschleife() // Startet die Spielschleife</code></pre>
             </div>
             <p>Jetzt soll der Schläger ohne Probleme nach oben schweben.</p>
             
-			<h1 class="title">Schritt 7: Controller</h1>
+			<h1 id="controller" class="title">Schritt 7: Controller</h1>
             <hr>
             <p>Jetzt können wir endlich unser Spiel interaktiv machen. Wir programmieren den "Controller" für unser Schläger. Der Schläger soll sich bewegen, wenn der Spieler eine Pfeiltasten drückt. Als ersten definieren wir Variablen für die Key-Codes für Pfeiltasten (damit es mehr lesbar wird). Key-Codes sind einfach Nummern, die uns sagen, welche Taste gedrückt wird. In JavaScript steht die Nummer 38 für die Pfeiltaste nach oben und die Nummer 40 für die Pfeiltaste nach unten. Auch definieren wir die Geschwindigkeit für unser Schläger.</p>
             <div class="code-block">
@@ -351,7 +366,7 @@ function spielschleife() {
 spielschleife() // Startet die Spielschleife</code></pre>
 			</div>
 
-            <h1 class="title">Schritt 8: Der Ball</h1>
+            <h1 id="ball" class="title">Schritt 8: Der Ball</h1>
             <hr>
             <p>Jetzt können wir endlich mal den Ball programmieren. Der Ball in Pong ist nichts außer einem weißem Quader, der mit konstanter Geschwindigkeit durch den Raum fliegt und ab und zu von Wände und Schläger abprallt. Zuerst definieren wir die benötigte Variablen für den Ball. Das wären die Größe, die X- und Y-Position, und die X- und Y-Geschwindigkeit.</p>
             <div class="code-block">
@@ -407,6 +422,299 @@ ballYPosition += ballYGeschwindigkeit</code></pre>
         ballYGeschwindigkeit = -Math.abs(ballYGeschwindigkeit)
     }
 }</code></pre>
+			</div>
+            <p><strong>Falls Sie verwirrt sind:</strong> Wir benutzen Math.abs(), anstatt die Geschwindigkeit direkt umzukehren (z.B. mit ballYGeschwindigkeit = -ballYGeschwindigkeit), weil, wenn wir das so machen und der Ball aus irgendeinem Grund durch die Wand geht (das kann passieren, wenn die Geschwindigkeit hoch ist), wird das Programm jedes mall versuchen, ihn umzukehren, bis es rauß aus der Wand ist. Das heißt, der Ball wird nie heraßkommen können, weil die Geschwindigkeit mehrmals pro Sekunde von positiv zu negativ wechselt.</p>
+            <p>Dieses Problem taucht nicht auf, wenn das Programm genau weiß, ob die Geschwindikeit positiv oder negativ sein soll nach einem Abprall ab einer Wand.</p>
+            <p><strong>Aber warum Math.abs()?</strong> Wenn der Ball ab der oberen "Wand" abprallt, wird seine Geschwindigkeit auf den Absolutbetrag von dieser Geschwindigkeit gesetzt. Also ist es egal ob die Geschwindigkeit 3 oder -3 vorher war, wird es immer auf das positive Wert (+3) gesetzt. Beim Abprall von der unteren Wand passiert das Gegenteil. Die Geschwindigkeit wird auf das negative Absolutwert davon gesetzt, also ist der ergebenis immer das negative Wert davon, was es davor war.</p>
+        
+            <br><br><br><br>
+            <p><strong>Jetzt mussen wir weitermachen.</strong> In Pong soll der Ball zurück zur Startposition gehen, wenn es den linken oder rechten Rand trifft, danach bekommt der Spieler auf der andere Seite einen Punkt. Als erstes definieren wir zwei Variablen für die Punkten.</p>
+            <div class="code-block">
+                <pre><code class="language-js">let menschPunkten = 0 // Punkten des Spielers
+let computerPunkten = 0 // Punkte des Computers</code></pre>
+			</div>
+            <p>Danach definieren wir eine Funktion, die die Position und Geschwindigkeit des Balles zurückgesetzt.</p>
+            <div class="code-block">
+                <pre><code class="language-js">// Setzt den Ball zurück
+function ballZurueckstzen() {
+    ballXPosition = (spielCanvas.width / 2) - (ballGroesse / 2) // Mitte der Canvas (X-Achse)
+    ballYPosition = (spielCanvas.height / 2) - (ballGroesse / 2) // Mitte der Canvas (Y-Achse)
+    ballXGeschwindigkeit = -3
+    ballYGeschwindigkeit = -3
+}</code></pre>
+			</div>
+            <p>Endlich definieren wir eine Funktion namens "ballGetroffen()". Diese Funktion wird, ähnlich zur "ballAbprall()", prüfen ob der Ball an einem Rand ist. Wenn das so ist, wird seine Position zurückgesetzt und der Spieler (oder das Computer) bekommt einen Punkt.</p>
+            <div class="code-block">
+                <pre><code class="language-js">// Prüft, ob der Spieler oder das Computer getroffen hat
+function ballGetroffen() {
+    if(ballXPosition < 0) {
+        computerPunkten++ // Der Computer hat getroffen!
+        ballZurueckstzen()
+    } else if(ballXPosition > spielCanvas.width) {
+        menschPunkten++ // Der Mensch hat getroffen!
+        ballZurueckstzen()
+    }
+}</code></pre>
+			</div>
+            <p>Vergessen Sie nicht, ballGetroffen() in der Spielschleife aufzurufen!</p>
+            <div class="code-block">
+                <pre><code class="language-js">function spielschleife() {
+    ...
+
+    ballAbprall()
+    ballGetroffen()
+
+    ...
+}</code></pre>
+			</div>
+            <br><br><br><br>
+            <p>Sie haben (hoffentlich) schon bemerkt, dass der Ball durch den Schläger geht. Das sollen wir jetzt fixen. Als ersten definieren wir eine Funktion "ballSchlaegerAbprall()". Diese funktion wird prüfen, ob der Ball einen Schläger getroffen hat.</p>
+            <div class="code-block">
+                <pre><code class="language-js">function ballSchlaegerAbprall() {
+
+}</code></pre>
+			</div>
+            <p>Vergessen Sie nicht, die Funktion in die Spielschleife einzufügen!</p>
+            <div class="code-block">
+                <pre><code class="language-js">function spielschleife() {
+    ...
+
+    ballAbprall()
+    ballGetroffen()
+    ballSchlaegerAbprall()
+
+    ...
+}</code></pre>
+			</div>
+            <p>Falls Sie nicht wissen wie wir prüfen werden, ob der Ball einen Schläger trifft, wir werden eine Hitbox programmieren. Hitboxen sind Rechtecken, und wenn zwei dieser Rechtecken sich überlappen, dann heißt das, dass sie sich berühren.</p>
+            <p>Als ersten prüfen wir, ob der linkerer Rand des Balles links vom rechten Rand des Schlägers:</p>
+            <div class="code-block">
+                <pre><code class="language-js">function ballSchlaegerAbprall() {
+    if(ballXPosition <= (schlaegerXPosition + schlaegerBreite)) {
+        ballXGeschwindigkeit = Math.abs(ballXGeschwindigkeit)
+    }
+}</code></pre>
+			</div>
+            <p>Sie werden es nicht sehen, aber die Hitbox soll nun so assehen (das Grüne Feld stellt die Fläche dar, wo der Ball abprallen kann)</p>
+            <img src="images/darstellung2.png">
+            <p>Das ist ein bisshen zu viel, oder? Wir reduzieren die Fläche, indem wir prüfen, ob der ball sich unter dem Schläger befindet.</p>
+            <div class="code-block">
+                <pre><code class="language-js">function ballSchlaegerAbprall() {
+    if(
+            ballXPosition <= (schlaegerXPosition + schlaegerBreite)
+            && (ballYPosition + ballGroesse) >= schlaegerYPosition) {
+        ballXGeschwindigkeit = Math.abs(ballXGeschwindigkeit)
+    }
+}</code></pre>
+			</div>
+            <p>Die Kollisionsfläche sieht nun so aus:</p>
+            <img src="images/darstellung3.png">
+            <p>Nun prüfen wir auch ob der Ball nicht unter dem Schläger ist:</p>
+            <div class="code-block">
+                <pre><code class="language-js">function ballSchlaegerAbprall() {
+    if(
+            ballXPosition <= (schlaegerXPosition + schlaegerBreite)
+            && (ballYPosition + ballGroesse) >= schlaegerYPosition
+            && ballYPosition <= (schlaegerYPosition + schlaegerHoehe)) {
+        ballXGeschwindigkeit = Math.abs(ballXGeschwindigkeit)
+    }
+}</code></pre>
+			</div>
+            <p>Fast fertig! Nun kann der ball nur hier abprallen:</p>
+            <img src="images/darstellung4.png">
+            <p>Damit der ball nicht abprallt, wenn es hinter dem Schläger ist, prüfen wir, ob die rechteste Seite des Balles linker ist als die linkeste Seite des Schlägers:</p>
+            <div class="code-block">
+                <pre><code class="language-js">function ballSchlaegerAbprall() {
+    if(
+            ballXPosition <= (schlaegerXPosition + schlaegerBreite)
+            && (ballYPosition + ballGroesse) >= schlaegerYPosition
+            && ballYPosition <= (schlaegerYPosition + schlaegerHoehe)
+            && (ballXPosition + ballGroesse) >= schlaegerXPosition) {
+        ballXGeschwindigkeit = Math.abs(ballXGeschwindigkeit)
+    }
+}</code></pre>
+			</div>
+            <p>Der Ball soll jetzt nur abprallen, wenn er den Schläger brührt.</p>
+            <br><br><br><br>
+            <p><strong>Ihrer Code soll jetzt ungefähr so aussehen:</strong></p>
+            <div class="code-block">
+                <pre><code class="language-js">const spielCanvas = document.getElementById('mein-spiel') // Referenz zur Canvas
+const kontext = spielCanvas.getContext('2d') // 2D Kontext von unserer Canvas
+
+// Breite bzw. Höhe der Schläger
+const schlaegerBreite = 20
+const schlaegerHoehe = 100
+
+// KeyCodes für die Pfeiltasten
+const pfeiltasteOben = 38
+const pfeiltasteUnten = 40
+
+// Schläger
+let schlaegerXPosition = 100
+let schlaegerYPosition = (spielCanvas.height / 2) - (schlaegerHoehe / 2)
+let schlaegerYGeschwindigkeit = 0
+const schlaegerBewegungsgeschwindigkeit = 5
+
+// Variablen für den Ball
+const ballGroesse = 20 // Breite und Höhe des Balls (es ist ein Quader, die beide Werte sind gleich)
+let ballXPosition = (spielCanvas.width / 2) - (ballGroesse / 2) // Mitte der Canvas (X-Achse)
+let ballYPosition = (spielCanvas.height / 2) - (ballGroesse / 2) // Mitte der Canvas (Y-Achse)
+let ballXGeschwindigkeit = -3
+let ballYGeschwindigkeit = -3
+
+let menschPunkten = 0 // Punkten des Spielers
+let computerPunkten = 0 // Punkte des Computers
+
+kontext.fillStyle = 'white' // Wir werden alle Figuren weiß zeichnen, also mussen wir die Farbe nur einmal einstellen
+
+// Eine Funktion, die einen weißen Rechteck zeichnet
+function zeichneRechteck(xPosition, yPosition, breite, hoehe) {
+    kontext.beginPath()
+    kontext.rect(xPosition, yPosition, breite, hoehe)
+    kontext.fill()
+}
+
+// Controller für den Schläger
+document.onkeydown = function(event) {
+    if(event.keyCode === pfeiltasteOben) {
+        schlaegerYGeschwindigkeit = -schlaegerBewegungsgeschwindigkeit // Negative Geschwindigkeit = nach oben gehen
+    } else if(event.keyCode === pfeiltasteUnten) {
+        schlaegerYGeschwindigkeit = schlaegerBewegungsgeschwindigkeit
+    }
+}
+
+// Wenn der Spieler eine Taste loslässt, dann soll der Schläger aufhören, sich zu bewegen
+document.onkeyup = function(event) {
+    schlaegerYGeschwindigkeit = 0
+}
+
+function ballAbprall() {
+    if(ballYPosition <= 0) {
+        // Abprall ab dem oberem Rand (soll jetzt nach unten gehen)
+        ballYGeschwindigkeit = Math.abs(ballYGeschwindigkeit)
+    } else if((ballYPosition + ballGroesse) >= spielCanvas.height) {
+        // Abprall ab dem unterem Rand (soll jetzt nach oben gehen)
+        ballYGeschwindigkeit = -Math.abs(ballYGeschwindigkeit)
+    }
+}
+
+// Setzt den Ball zurück
+function ballZurueckstzen() {
+    ballXPosition = (spielCanvas.width / 2) - (ballGroesse / 2) // Mitte der Canvas (X-Achse)
+    ballYPosition = (spielCanvas.height / 2) - (ballGroesse / 2) // Mitte der Canvas (Y-Achse)
+    ballXGeschwindigkeit = -3
+    ballYGeschwindigkeit = -3
+}
+
+// Prüft, ob der Spieler oder das Computer getroffen hat
+function ballGetroffen() {
+    if(ballXPosition < 0) {
+        computerPunkten++ // Der Computer hat getroffen!
+        ballZurueckstzen()
+    } else if(ballXPosition > spielCanvas.width) {
+        menschPunkten++ // Der Mensch hat getroffen!
+        ballZurueckstzen()
+    }
+}
+
+function ballSchlaegerAbprall() {
+    if(
+            ballXPosition <= (schlaegerXPosition + schlaegerBreite)
+            && (ballYPosition + ballGroesse) >= schlaegerYPosition
+            && ballYPosition <= (schlaegerYPosition + schlaegerHoehe)
+            && (ballXPosition + ballGroesse) >= schlaegerXPosition) {
+        ballXGeschwindigkeit = Math.abs(ballXGeschwindigkeit)
+    }
+}
+
+function spielschleife() {
+    // Verschiebe den Schläger, WENN er sich nach OBEN bewegt UND NICHT am OBEREN
+    // RAND ist, ODER WENN es sich nach UNTEN bewegt UND NICHT am UNTEREN RAND ist.
+    if( ( schlaegerYGeschwindigkeit < 0 && schlaegerYPosition > 0 ) || ( schlaegerYGeschwindigkeit > 0 && (schlaegerYPosition + schlaegerHoehe) < spielCanvas.height ) ) {
+        // Aktualisiere die Position des Schlägers in Abhängigkeit von seiner Geschwindigkeit
+        schlaegerYPosition += schlaegerYGeschwindigkeit
+    }
+
+    // Aktualisiere die Position des Balles in Abhängigkeit von seiner Geschwindigkeit
+    ballXPosition += ballXGeschwindigkeit
+    ballYPosition += ballYGeschwindigkeit
+
+    ballAbprall()
+    ballGetroffen()
+    ballSchlaegerAbprall()
+
+    // Lösche die Canvas bevor andere Objekte gezeichnet werden können
+    kontext.clearRect(0, 0, spielCanvas.width, spielCanvas.height)
+
+    // Zeichne den Schläger des Spielers
+    zeichneRechteck(schlaegerXPosition, schlaegerYPosition, schlaegerBreite, schlaegerHoehe) 
+
+    // Zeichne den Ball
+    zeichneRechteck(ballXPosition, ballYPosition, ballGroesse, ballGroesse)
+
+    // Anfrage für das nächste Bild
+    window.requestAnimationFrame(spielschleife)
+}
+
+spielschleife() // Startet die Spielschleife</code></pre>
+			</div>
+
+            <h1 id="style" class="title">Text und Linie</h2>
+            <hr>
+            <p>Gleich machen wir das Spiel fertig, indem wir den zweiten Schläger programmieren. Aber zuerst machen wir was anderes. Im alten Pong-Spiel gab es mehr als nur Schläger und Bälle. Es gab Elemente wie die Nummern, die den Punktenzahl zeigen, und eine Trennlinie.</p>
+            <img src="images/pong.png" alt="Foto vom altem Pong-Spiel">
+            <p>Als erstes definieren wir die Farbe und Breite des Trennliniens.</p>
+            <div class="code-block">
+                <pre><code class="language-js">kontext.strokeStyle = 'white' // Weiße Farbe
+kontext.lineWidth = 2 // Linienbreite</code></pre>
+			</div>
+            <p>Danach definieren wir eine Funktion, die eine Linie von A nach B zeichnet.</p>
+            <div class="code-block">
+                <pre><code class="language-js">// Zeichnet eine Linie von A nach B
+function zeichneLinie(aX, aY, bX, bY) {
+    kontext.beginPath()
+    kontext.moveTo(aX, aY)
+    kontext.lineTo(bX, bY)
+    kontext.stroke()
+}</code></pre>
+			</div>
+            <p>Den Aufruf fügen wir in die Spielschleife ein (Unter dem kontext.clearRect(...)-Aufruf!). Damit zeichnen wir eine Linie in der Mitte der Canvas.</p>
+            <div class="code-block">
+                <pre><code class="language-js">function spielschleife() {
+    ...
+
+    // Zeichne Trennlinie
+    zeichneLinie(spielCanvas.width/2, 0, spielCanvas.width/2, spielCanvas.height)
+
+    ...
+}</code></pre>
+			</div>
+            <br><br><br><br>
+            <p>Um die Punktezahlen zu zeigen, setzen wir die Schriftart (außer der Spielschleife):</p>
+            <div class="code-block">
+                <pre><code class="language-js">kontext.font = "30px Arial"</code></pre>
+			</div>
+            <p>In der Spielschleife können wir nun die Punktezahlen mit der <a href="https://www.w3schools.com/graphics/canvas_text.asp">fillText()</a> Funktion zeigen.</p>
+            <div class="code-block">
+                <pre><code class="language-js">function spielschleife() {
+    ...
+
+    // Punktezahlen zeigen
+    kontext.fillText(menschPunkten, spielCanvas.width/2 - 20, 50) // Spieler
+    kontext.fillText(computerPunkten, spielCanvas.width/2 + 20, 50) // Computer
+
+    ...
+}</code></pre>
+			</div>
+            <p>Das sieht aber nicht sehr gut aus und kann mit größeren Zahlen problematisch werden:</p>
+            <img src="images/screenshot5.png">
+            <p>Das können wir mit der textAlign Variable fixen:</p>
+            <div class="code-block">
+                <pre><code class="language-js">// Punktezahlen zeigen
+kontext.textAlign = 'right'
+kontext.fillText(menschPunkten, spielCanvas.width/2 - 20, 50) // Spieler
+kontext.textAlign = 'left'
+kontext.fillText(computerPunkten, spielCanvas.width/2 + 20, 50) // Computer</code></pre>
 			</div>
         </div>
         <script src="prism/prism.js"></script>
