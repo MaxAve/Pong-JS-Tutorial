@@ -7,10 +7,12 @@
     </head>
     <body>
         <div id="navbar">
-            <h2>Schritten</h2>
+            <h2>Einführung</h2>
             <a href="#intro">Einführung</a>
             <a href="#vorwissen">Vorwissen</a>
             <a href="#tip">Ein Tipp</a>
+            <br>
+            <h2>Schritten</h2>
             <a href="#indexhtml">HTML-Seite erstellen</a>
             <a href="#dercanvas">HTML-Canvas</a>
             <a href="#stylecss">CSS</a>
@@ -20,6 +22,9 @@
             <a href="#controller">Controller</a>
             <a href="#ball">Ball</a>
             <a href="#style">Text und Linie</a>
+            <a href="#paddle2">Schläger Nr. 2</a>
+            <h2>Fazit</h2>
+            <a href="#conclusion">Fazit</a>
         </div>
         <div id="main">
             <h1 id="intro" class="title"><u>Lass uns ein Spiel programmieren!</u></h2>
@@ -32,12 +37,14 @@
 
             <h1 id="vorwissen" class="title">Vorwissen</h2>
             <hr>
-            <p>Um diesen Spiel zu programmieren, musst du die <u>Grundlagen</u> von HTML, CSS, und JavaScript kennen. Ich werde es versuchen, diesen Tutorial so Anfängerfreundlich zu machen wie ich das kann, Sie werden aber trotzdem irgendein Grundwissen von HTML/CSS/JavaScript brauchen.</p>
+            <p>Wir Programmieren das Spiel mit JavaScript und ein wenig HTML und CSS. Obwohl ich versucht habe, diesen Tutorial Anfängerfreundlich zu machen, ist es empfohlen, mindestens die Grundlagen von JavaScript und das Programmieren allgemein zu haben. <strong>Falls Sie irgendetwas nicht verstehen, empfehle ich Ihnen, dass Sie darüber googeln und nachlesen.</strong></p>
+            <p>Zwei weitere Voraussetzungen sind ein Browser und eine IDE. IDE steht für "Integrated Development Environment", also Integrierte Entwicklungsumbegung. Das ist das Programm, wo wir unser Code schreiben. Sie können benutzen, was Sie wollen, ich aber empfehle VSCode (Visual Studio Code). Die können Sie <a href="https://code.visualstudio.com/download" target="_blank">hier</a> kostenlos installieren. Ich gehe in meinem Tutorial davon aus, dass Sie wissen, wie man mit einer IDE umgeht und wie man eine HTML-Seite in einem Browser öffnet.</p>
             
             <h1 id="tip" class="title">Ein Tipp</h2>
             <hr>
-            <p>Falls Sie bei irgendeinem Schritt irgendetwas falsch gemacht haben, clicken Sie auf die rechte Maustaste, gehen Sie auf "Untersuchen" (auf Englisch - "Inspect"). Eine Art Fenster soll auf der rechte Seite geöffnet werden sein. Gehen Sie darauf und clicken Sie auf <strong>"Console"</strong>. <strong>Hier werden Fehlermeldungen gezeigt, was beim Programmieren SEHR hilfreich sein kann.</strong></p>
+            <p>Falls Sie bei irgendeinem Schritt irgendetwas falsch gemacht haben, öffnen Sie das Spiel in ihrem Browser, clicken Sie auf die rechte Maustaste, gehen Sie auf "Untersuchen" (auf Englisch - "Inspect").</p>
             <img src="images/screenshot3.png" alt="Clicken Sie auf Untersuchen">
+            <p>Eine Art Fenster soll auf der rechte Seite geöffnet werden sein. Gehen Sie darauf und clicken Sie auf <strong>"Console"</strong>. <strong>Hier werden Fehlermeldungen gezeigt, was beim Programmieren SEHR hilfreich sein kann.</strong></p>
             <img src="images/screenshot4.png" alt="Ein Fenster wird rechts geöffnet. Clicken Sie auf Console, dort werden Fehlermeldungen angezeigt.">
 
             <h1 id="indexhtml" class="title">Schritt 1: HTML-Seite erstellen</h1>
@@ -710,12 +717,100 @@ function zeichneLinie(aX, aY, bX, bY) {
             <img src="images/screenshot5.png">
             <p>Das können wir mit der textAlign Variable fixen:</p>
             <div class="code-block">
-                <pre><code class="language-js">// Punktezahlen zeigen
+                <pre><code class="language-js">...
+                    
+// Punktezahlen zeigen
 kontext.textAlign = 'right'
 kontext.fillText(menschPunkten, spielCanvas.width/2 - 20, 50) // Spieler
 kontext.textAlign = 'left'
-kontext.fillText(computerPunkten, spielCanvas.width/2 + 20, 50) // Computer</code></pre>
+kontext.fillText(computerPunkten, spielCanvas.width/2 + 20, 50) // Computer
+
+...</code></pre>
 			</div>
+
+            <h1 id="paddle2" class="title">Schläger Nr. 2</h2>
+            <hr>
+            <p>Wir programmieren endlich den zweiten Schläger. Dieser wird vom Computer Kontrolliert. Zuerst definieren wir die Variablen dafür:</p>
+            <div class="code-block">
+                <pre><code class="language-js">// Schläger 2 (Computer)
+let schlaeger2XPosition = spielCanvas.width - 100
+let schlaeger2YPosition = (spielCanvas.height / 2) - (schlaegerHoehe / 2)
+let schlaeger2YGeschwindigkeit = 0</code></pre>
+			</div>
+            <p>Wir zeichnen ihn auf der Canvas genau so, wie wir den Spieler-Schläger zeichnen.</p>
+            <div class="code-block">
+                <pre><code class="language-js">function spielschleife() {
+    ...
+
+    // Zeichne den Schläger der Computer
+	zeichneRechteck(schlaeger2XPosition, schlaeger2YPosition, schlaegerBreite, schlaegerHoehe)
+
+    ...
+}</code></pre>
+			</div>
+            <p>Der Computer-Schläger soll den Ball folgen. Also z.B. falls der Ball höher ist als er, soll der Schläger nach oben bewegen.</p>
+            <div class="code-block">
+                <pre><code class="language-js">function spielschleife() {
+    if((ballYPosition + ballGroesse / 2) < (schlaeger2YPosition + schlaegerHoehe / 2)) {
+        schlaeger2YGeschwindigkeit = -schlaegerBewegungsgeschwindigkeit // Bewege nach oben, wenn der ball höher ist
+    } else if((ballYPosition + ballGroesse / 2) > (schlaeger2YPosition + schlaegerHoehe / 2)) {
+        schlaeger2YGeschwindigkeit = schlaegerBewegungsgeschwindigkeit // Bewege nach unten, wenn der ball niedriger ist
+    }
+
+    ...
+}</code></pre>
+			</div>
+            <p>Die Position der Objekten beschreibt die Position des oben-linkeren Kantes, also addieren wir die Hälfte der Höhe des Schlägers und Balles jeweils zu ihren Y-Positionen (z.B.: ballYPosition + ballGroesse / 2), damit wir den Center Messen.</p>
+            <p>Damit dieser Schläger auch nicht durch die Wand geht, nehmen wir unseren Code für den Spieler-Schläger, der ihn Stoppt, wenn er einen Wand trifft. Wir ersetzen die Variablen und dann soll es funktionieren.</p>
+            <div class="code-block">
+                <pre><code class="language-js">function spielschleife() {
+    ...
+
+    if((schlaeger2YGeschwindigkeit < 0 && schlaeger2YPosition > 0) || ( schlaeger2YGeschwindigkeit > 0 && (schlaeger2YPosition + schlaegerHoehe) < spielCanvas.height)) {
+        // Aktualisiere die Position des Schlägers in Abhängigkeit von seiner Geschwindigkeit
+        schlaeger2YPosition += schlaeger2YGeschwindigkeit
+    }
+
+    ...
+}</code></pre>
+			</div>
+            <p>Und endlich, damit der Ball abprallt, wenn er den Computer-Schläger trifft, aktualisieren wir ballSchlaegerAbprall(). Wir nehmen unseren alten Code und ändern ein Paar Teile.</p>
+            <div class="code-block">
+                <pre><code class="language-js">function ballSchlaegerAbprall() {
+    if(
+            ballXPosition <= (schlaegerXPosition + schlaegerBreite)
+            && (ballYPosition + ballGroesse) >= schlaegerYPosition
+            && ballYPosition <= (schlaegerYPosition + schlaegerHoehe)
+            && (ballXPosition + ballGroesse) >= schlaegerXPosition) {
+        ballXGeschwindigkeit = Math.abs(ballXGeschwindigkeit)
+    } else if(
+        // Computer-Schläger
+            (ballXPosition + ballGroesse) >= schlaeger2XPosition
+            && (ballYPosition + ballGroesse) >= schlaeger2YPosition
+            && ballYPosition <= (schlaeger2YPosition + schlaegerHoehe)
+            && ballXPosition <= (schlaeger2XPosition + schlaegerBreite)) {
+        ballXGeschwindigkeit = -Math.abs(ballXGeschwindigkeit)
+    }
+}</code></pre>
+			</div>
+
+            <h1 id="conclusion" class="title">Fazit</h2>
+            <hr>
+            <p>Das Projekt ist endlich fertig! Hoffentlich haben Sie irgendetwas über JavaScript und/oder die Entwicklung von Videospielen gelernt.</p>
+            <p>Wir haben die Folgende Themen behandelt:</p>
+            <ul>
+                <li>HTML-Canvas</li>
+                <li>Spielschleifen</li>
+                <li>Controller (Tastatur-Eingabe)</li>
+                <li>Hitboxen</li>
+                <li>Canvas-Text mit JavaScript</li>
+            </ul>
+            <p>Das waren die Grundlagen der Spielentwicklung! Damit Sie besser lernen können, empfehle ich Ihnen, dieses Projekt nicht zu verlassen. Arbeiten Sie daran weiter! Verbessern Sie es. Es gibt viel, was man hier verbessern kann. <strong>Hier sind ein Paar Ideen:</strong></p>
+            <ul>
+                <li>Der Ball wird immer schneller, wenn einer punktet.</li>
+                <li>Die Richtung des Balles kann geändert werden, wenn der Schläger beim auftreffen sich bewegt.</li>
+                <li>Fügen Sie Effekten hinzu, z.B. Schatten.</li>
+            </ul>
         </div>
         <script src="prism/prism.js"></script>
     </body>

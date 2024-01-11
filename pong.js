@@ -1,86 +1,39 @@
-const canvas = document.getElementById("pong");
-const ctx = canvas.getContext("2d");
+const spielCanvas = document.getElementById('pong') // Referenz zur Canvas
+const kontext = spielCanvas.getContext('2d') // 2D Kontext von unserer Canvas
 
-// Paddle sizes
-const paddleWidth = 20;
-const paddleHeight = 100;
+// Breite bzw. Höhe der Schläger
+const schlaegerBreite = 20
+const schlaegerHoehe = 100
 
-// Paddles
-const paddle1X = 30;
-const paddle2X = canvas.width - 30 - paddleWidth;
-let paddle1Y = canvas.height / 2 - paddleHeight / 2;
-let paddle2Y = canvas.height / 2 - paddleHeight / 2;
-let paddle1VelocitY = 0;
+// KeyCodes für die Pfeiltasten
+const pfeiltasteOben = 38
+const pfeiltasteUnten = 40
 
-// Ball
-let ballSize = 20;
-let ballX = canvas.width/2 - ballSize/2;
-let ballY = canvas.height/2 - ballSize/2;
+// Schläger
+let schlaegerXPosition = 100
+let schlaegerYPosition = (spielCanvas.height / 2) - (schlaegerHoehe / 2)
+let schlaegerYGeschwindigkeit = 0
+const schlaegerBewegungsgeschwindigkeit = 5
 
-// Ball velocity
-let ballVelocityX = -7;
-let ballVelocityY = Math.floor(Math.random() * 20) - 10;
+// Schläger 2 (Computer)
+let schlaeger2XPosition = spielCanvas.width - 100
+let schlaeger2YPosition = (spielCanvas.height / 2) - (schlaegerHoehe / 2)
+let schlaeger2YGeschwindigkeit = 0
 
-// Moves paddle 1
-function movePaddle1(moveBy) {
-    paddle1Y += moveBy; // Move paddle
+// Variablen für den Ball
+const ballGroesse = 20 // Breite und Höhe des Balls (es ist ein Quader, die beide Werte sind gleich)
+let ballXPosition = (spielCanvas.width / 2) - (ballGroesse / 2) // Mitte der Canvas (X-Achse)
+let ballYPosition = (spielCanvas.height / 2) - (ballGroesse / 2) // Mitte der Canvas (Y-Achse)
+let ballXGeschwindigkeit = -5
+let ballYGeschwindigkeit = -5
 
-    // Don't let paddles go beyond the canvas
-    if((paddle1Y + paddleHeight) > canvas.height) {
-        paddle1Y = canvas.height - paddleHeight;
-    } else if(paddle1Y < 0) {
-        paddle1Y = 0;
-    }
-}
+let menschPunkten = 0 // Punkten des Spielers
+let computerPunkten = 0 // Punkte des Computers
 
-function moveBallToCenter() {
-    ballX = canvas.width/2 - ballSize/2;
-    ballY = canvas.height/2 - ballSize/2;
-}
-
-// Moves paddle 2
-function movePaddle2(moveBy) {
-    paddle2Y += moveBy; // Move paddle
-
-    // Don't let paddles go beyond the canvas
-    if((paddle2Y + paddleHeight) > canvas.height) {
-        paddle2Y = canvas.height - paddleHeight;
-    } else if(paddle2Y < 0) {
-        paddle2Y = 0;
-    }
-}
-
-// Checks for collisions and makes ball bounce if there are any
-function checkBallCollisions() {
-    // Check if the ball is on the edge of the canvas
-    if(ballX <= 0 || (ballX + ballSize) >= canvas.width) {
-        ballVelocityY = (Math.floor(Math.random() * 7) - 3.5) * 3;
-        moveBallToCenter();
-    }
-    if(ballY <= 0 || (ballY + ballSize) >= canvas.height) {
-        ballVelocityY = -ballVelocityY; // Reverse Y velocity which makes it look as if the ball is bouncing off the wall
-    }
-
-    // Check collisions with paddle 1
-    if(ballX <= paddle1X + paddleWidth && ballY <= (paddle1Y + paddleHeight) && (ballY + ballSize) >= paddle1Y) {
-        ballVelocityX = Math.abs(ballVelocityX);
-    }
-
-    // Check collisions with paddle 2
-    if((ballX + ballSize) >= paddle2X && ballY <= (paddle2Y + paddleHeight) && (ballY + ballSize) >= paddle2Y) {
-        ballVelocityX = -Math.abs(ballVelocityX);
-    }
-}
-
-// Mouse position
-let mouseX = 0;
-let mouseY = 0;
-
-// Get mouse position
-canvas.addEventListener('mousemove', function (event) {
-    mouseX = event.clientX;
-    mouseY = event.clientY;
-});
+kontext.fillStyle = 'white' // Wir werden alle Figuren weiß zeichnen, also mussen wir die Farbe nur einmal einstellen
+kontext.strokeStyle = 'white'
+kontext.lineWidth = 2
+kontext.font = "50px Arial"
 
 window.addEventListener("keydown", function(e) {
     if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
@@ -88,55 +41,130 @@ window.addEventListener("keydown", function(e) {
     }
 }, false);
 
-// Move paddle 1 with arrow keys
-document.onkeydown = function(e) {
-  if(e.keyCode === 38) {
-      paddle1VelocitY = -10;
-  } else if(e.keyCode === 40) {
-      paddle1VelocitY = 10;
-  }
-};
-
-document.onkeyup = (e) => {
-    paddle1VelocitY = 0;
+// Eine Funktion, die einen weißen Rechteck zeichnet
+function zeichneRechteck(xPosition, yPosition, breite, hoehe) {
+	kontext.beginPath()
+	kontext.rect(xPosition, yPosition, breite, hoehe)
+	kontext.fill()
 }
 
-// Game loop
-function gameLoop() {
-    // Update ball position based on its current velocity
-    ballX += ballVelocityX;
-    ballY += ballVelocityY;
-
-    paddle1Y += paddle1VelocitY;
-
-    // Move paddle 2 automatically
-    paddle2Y = ballY - paddleHeight / 2;
-
-    // Bounce ball on collision
-    checkBallCollisions();
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
-
-    ctx.fillStyle = 'white'; // Set the color to white
-
-    // Draw paddle 1
-    ctx.beginPath();
-    ctx.rect(paddle1X, paddle1Y, paddleWidth, paddleHeight);
-    ctx.fill();
-
-    // Draw paddle 2
-    ctx.beginPath();
-    ctx.rect(paddle2X, paddle2Y, paddleWidth, paddleHeight);
-    ctx.fill();
-
-    // Draw ball
-    ctx.beginPath();
-    ctx.rect(ballX, ballY, ballSize, ballSize);
-    ctx.fill();
-
-    // Animate next frame
-    window.requestAnimationFrame(gameLoop);
+// Zeichnet eine Linie von A nach B
+function zeichneLinie(aX, aY, bX, bY) {
+    kontext.beginPath()
+    kontext.moveTo(aX, aY)
+    kontext.lineTo(bX, bY)
+    kontext.stroke()
 }
 
-// Start game
-gameLoop();
+// Controller für den Schläger
+document.onkeydown = function(event) {
+	if(event.keyCode === pfeiltasteOben) {
+		schlaegerYGeschwindigkeit = -schlaegerBewegungsgeschwindigkeit // Negative Geschwindigkeit = nach oben gehen
+	} else if(event.keyCode === pfeiltasteUnten) {
+		schlaegerYGeschwindigkeit = schlaegerBewegungsgeschwindigkeit
+	}
+}
+
+// Wenn der Spieler eine Taste loslässt, dann soll der Schläger aufhören, sich zu bewegen
+document.onkeyup = function(event) {
+	schlaegerYGeschwindigkeit = 0
+}
+
+function ballAbprall() {
+    if(ballYPosition <= 0) {
+        // Abprall ab dem oberem Rand (soll jetzt nach unten gehen)
+        ballYGeschwindigkeit = Math.abs(ballYGeschwindigkeit)
+    } else if((ballYPosition + ballGroesse) >= spielCanvas.height) {
+        // Abprall ab dem unterem Rand (soll jetzt nach oben gehen)
+        ballYGeschwindigkeit = -Math.abs(ballYGeschwindigkeit)
+    }
+}
+
+// Setzt den Ball zurück
+function ballZurueckstzen() {
+    ballXPosition = (spielCanvas.width / 2) - (ballGroesse / 2) // Mitte der Canvas (X-Achse)
+    ballYPosition = (spielCanvas.height / 2) - (ballGroesse / 2) // Mitte der Canvas (Y-Achse)
+    ballXGeschwindigkeit = -5
+    ballYGeschwindigkeit = -5
+}
+
+// Prüft, ob der Spieler oder das Computer getroffen hat
+function ballGetroffen() {
+    if(ballXPosition < 0) {
+        computerPunkten++ // Der Computer hat getroffen!
+        ballZurueckstzen()
+    } else if(ballXPosition > spielCanvas.width) {
+        menschPunkten++ // Der Mensch hat getroffen!
+        ballZurueckstzen()
+    }
+}
+
+function ballSchlaegerAbprall() {
+    if(
+            ballXPosition <= (schlaegerXPosition + schlaegerBreite)
+            && (ballYPosition + ballGroesse) >= schlaegerYPosition
+            && ballYPosition <= (schlaegerYPosition + schlaegerHoehe)
+            && (ballXPosition + ballGroesse) >= schlaegerXPosition) {
+        ballXGeschwindigkeit = Math.abs(ballXGeschwindigkeit)
+    } else if(
+        // Computer-Schläger
+            (ballXPosition + ballGroesse) >= schlaeger2XPosition
+            && (ballYPosition + ballGroesse) >= schlaeger2YPosition
+            && ballYPosition <= (schlaeger2YPosition + schlaegerHoehe)
+            && ballXPosition <= (schlaeger2XPosition + schlaegerBreite)) {
+        ballXGeschwindigkeit = -Math.abs(ballXGeschwindigkeit)
+    }
+}
+
+function spielschleife() {
+    if((ballYPosition + ballGroesse / 2) < (schlaeger2YPosition + schlaegerHoehe / 2)) {
+        schlaeger2YGeschwindigkeit = -schlaegerBewegungsgeschwindigkeit // Bewege nach oben, wenn der ball höher ist
+    } else if((ballYPosition + ballGroesse / 2) > (schlaeger2YPosition + schlaegerHoehe / 2)) {
+        schlaeger2YGeschwindigkeit = schlaegerBewegungsgeschwindigkeit // Bewege nach unten, wenn der ball niedriger ist
+    }
+
+	// Verschiebe den Schläger, WENN er sich nach OBEN bewegt UND NICHT am OBEREN
+    // RAND ist, ODER WENN es sich nach UNTEN bewegt UND NICHT am UNTEREN RAND ist.
+    if( ( schlaegerYGeschwindigkeit < 0 && schlaegerYPosition > 0 ) || ( schlaegerYGeschwindigkeit > 0 && (schlaegerYPosition + schlaegerHoehe) < spielCanvas.height ) ) {
+        // Aktualisiere die Position des Schlägers in Abhängigkeit von seiner Geschwindigkeit
+        schlaegerYPosition += schlaegerYGeschwindigkeit
+    }
+
+    if((schlaeger2YGeschwindigkeit < 0 && schlaeger2YPosition > 0) || ( schlaeger2YGeschwindigkeit > 0 && (schlaeger2YPosition + schlaegerHoehe) < spielCanvas.height)) {
+        // Aktualisiere die Position des Schlägers in Abhängigkeit von seiner Geschwindigkeit
+        schlaeger2YPosition += schlaeger2YGeschwindigkeit
+    }
+
+    // Aktualisiere die Position des Balles in Abhängigkeit von seiner Geschwindigkeit
+    ballXPosition += ballXGeschwindigkeit
+    ballYPosition += ballYGeschwindigkeit
+
+    ballAbprall()
+    ballGetroffen()
+    ballSchlaegerAbprall()
+
+    // Lösche die Canvas bevor andere Objekte gezeichnet werden können
+	kontext.clearRect(0, 0, spielCanvas.width, spielCanvas.height)
+
+    zeichneLinie(spielCanvas.width/2, 0, spielCanvas.width/2, spielCanvas.height)
+
+    // Punktezahlen zeigen
+    kontext.textAlign = 'right'
+    kontext.fillText(menschPunkten, spielCanvas.width/2 - 20, 50) // Spieler
+    kontext.textAlign = 'left'
+    kontext.fillText(computerPunkten, spielCanvas.width/2 + 20, 50) // Computer
+
+    // Zeichne den Schläger des Spielers
+	zeichneRechteck(schlaegerXPosition, schlaegerYPosition, schlaegerBreite, schlaegerHoehe) 
+
+    // Zeichne den Schläger der Computer
+	zeichneRechteck(schlaeger2XPosition, schlaeger2YPosition, schlaegerBreite, schlaegerHoehe) 
+
+    // Zeichne den Ball
+    zeichneRechteck(ballXPosition, ballYPosition, ballGroesse, ballGroesse)
+
+    // Anfrage für das nächste Bild
+	window.requestAnimationFrame(spielschleife)
+}
+
+spielschleife() // Startet die Spielschleife
