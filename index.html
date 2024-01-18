@@ -29,6 +29,7 @@
         <div id="main">
             <h1 id="intro" class="title"><u>Lass uns ein Spiel programmieren!</u></h2>
             <p>Dies ist ein Step-by-Step Tutorial, der Ihnen zeigen wird, wie Sie das Spiel "Pong"   mit HTML und JavaScript erstellen können. Scrolle weiter und nach eine oder zwei Stunden werden Sie ein komplettes, selbst-gemachtes Pong-Spiel haben! Nachdem Sie  fertig sind, können Sie diesen neuen Wissen benutzen, um an diesen Spiel weiterzuarbeiten  oder sogar eine neuen selber erstellen.</p>
+            <p><strong>Warum Pong?</strong> Pong ist ein klassischen Retro-Spiel. Es ist sehr simpel, die Spielmechanicken sind nicht komplex. Für Pong brauchen wir nur die Grundlagen, jedoch genug um in der Welt der Spielentwicklung einzusteigen.</p>
             <p>Für jeden Objekt (Spieler-Schläger, Komputer-Schläger, Ball) definiere ich in diesem Tutorial individuelle Variablen für die Positionen, Geschwindigkeiten, Größen, usw.. Ich konnte natürlich JavaScript-Objekte oder Klassen benutzen, um den Code besser zu strukturieren, aber da das hier Anfängerfreundlich sein soll, benutze ich keine, da Variablen vielleicht für manchen einfacher zu benutzen und verstehen sind. Falls Sie doch zu viele Variablen chaotisch finden, können Sie natürlich auch die obengenannte Strukturen benutzen. Ich empfehle aber, als erstes diesen Code zu benutzen, und danach können Sie es ändern, so wie Sie es haben wollen.</p>
             <br>
             <p class="game-caption"><strong>Das Endergebenis (nutze Pfeiltasten um zu spielen)</strong></p>
@@ -542,6 +543,7 @@ function ballGetroffen() {
 }</code></pre>
 			</div>
             <p>Der Ball soll jetzt nur abprallen, wenn er den Schläger brührt.</p>
+            <p><strong>Falls Sie nicht verstanden haben, was hier abgeht:</strong> Wenn die Bedingung in der If-Anweisung Wahr ist, dann wird der ball abgeprallt. Die If-Answeisung prüft, ob der Ball <strong>NICHT über dem Schläger ist</strong> und <strong>NICHT darunter ist</strong> und <strong>NICHT zu weit rechts ist</strong> und <strong>NICHT zu weit links ist</strong>. Wenn alle 4 Bedingungen <strong>WAHR</strong> sind, dann ist die einzige andere Möglichkeit, dass der Ball den Schläger berührt.</p>
             <br><br><br><br>
             <p><strong>Ihrer Code soll jetzt ungefähr so aussehen:</strong></p>
             <div class="code-block">
@@ -807,11 +809,23 @@ let schlaeger2YGeschwindigkeit = 0</code></pre>
             </ul>
             <p>Das waren die Grundlagen der Spielentwicklung! Damit Sie besser lernen können, empfehle ich Ihnen, dieses Projekt nicht zu verlassen. Arbeiten Sie daran weiter! Verbessern Sie es. Es gibt viel, was man hier verbessern kann. <strong>Hier sind ein Paar Ideen:</strong></p>
             <ul>
+                <li>Mit unterschiedlichen Größen (für die Schläger, Ball und Canvas) experimentieren.</li>
                 <li>Der Ball wird immer schneller, wenn einer punktet.</li>
                 <li>Die Richtung des Balles kann geändert werden, wenn der Schläger beim auftreffen sich bewegt.</li>
                 <li>Fügen Sie Effekten hinzu, z.B. Schatten.</li>
             </ul>
         </div>
+        <br><br><br><br>
+        <footer>
+            <div class="inlineblock">
+                <p><strong>Kontaktinfo:</strong></p>
+                <p id="contact">E-Mail Adresse: <a href="mailto:maxave404@gmail.com">maxave404@gmail.com</a><br>GitHub Konto: <a href="https://github.com/MaxAve" target="_blank">https://github.com/MaxAve</a></p>
+            </div>
+            <div class="inlineblock">
+                <p><strong>Quellcode:</strong></p>
+                <p id="contact">Quellcode für diese Seite: <a href="https://github.com/MaxAve/Pong-JS-Tutorial">https://github.com/MaxAve/Pong-JS-Tutorial</a><br>&ensp;</p>
+            </div>
+        </footer>
         <script src="prism/prism.js"></script>
     </body>
 </html>

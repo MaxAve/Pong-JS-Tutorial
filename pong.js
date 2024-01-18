@@ -24,8 +24,8 @@ let schlaeger2YGeschwindigkeit = 0
 const ballGroesse = 20 // Breite und Höhe des Balls (es ist ein Quader, die beide Werte sind gleich)
 let ballXPosition = (spielCanvas.width / 2) - (ballGroesse / 2) // Mitte der Canvas (X-Achse)
 let ballYPosition = (spielCanvas.height / 2) - (ballGroesse / 2) // Mitte der Canvas (Y-Achse)
-let ballXGeschwindigkeit = -5
-let ballYGeschwindigkeit = -5
+let ballXGeschwindigkeit = -6
+let ballYGeschwindigkeit = -6
 
 let menschPunkten = 0 // Punkten des Spielers
 let computerPunkten = 0 // Punkte des Computers
@@ -84,8 +84,8 @@ function ballAbprall() {
 function ballZurueckstzen() {
     ballXPosition = (spielCanvas.width / 2) - (ballGroesse / 2) // Mitte der Canvas (X-Achse)
     ballYPosition = (spielCanvas.height / 2) - (ballGroesse / 2) // Mitte der Canvas (Y-Achse)
-    ballXGeschwindigkeit = -5
-    ballYGeschwindigkeit = -5
+    ballXGeschwindigkeit = -5.8
+    ballYGeschwindigkeit = -5.8
 }
 
 // Prüft, ob der Spieler oder das Computer getroffen hat
